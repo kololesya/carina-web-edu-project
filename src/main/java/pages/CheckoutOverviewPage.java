@@ -42,8 +42,6 @@ public class CheckoutOverviewPage extends AbstractPage {
                 .map(item -> item.getText().trim())
                 .collect(Collectors.toList());
 
-        System.out.println(actualProducts.toString());
-
         LOGGER.debug("Actual products in summary: {}", actualProducts);
 
         return actualProducts.equals(expectedProducts);

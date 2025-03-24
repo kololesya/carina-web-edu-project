@@ -44,13 +44,9 @@ public class CartPage extends AbstractPage {
     }
 
     public void removeProductFromCart(String productName) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-
-        List<ExtendedWebElement> items = getCartItems();
-        wait.until(driver -> !items.isEmpty());
-
         LOGGER.info("Attempting to remove product: {}", productName);
 
+        List<ExtendedWebElement> items = cartItems;
         boolean productFound = false;
 
         for (ExtendedWebElement item : items) {
@@ -61,7 +57,7 @@ public class CartPage extends AbstractPage {
             if (itemName.equalsIgnoreCase(productName)) {
                 LOGGER.info("Found product in cart, removing: {}", productName);
                 ExtendedWebElement deleteButton = item.findExtendedWebElement(removeButton.getBy());
-                wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
+                deleteButton.click();
                 LOGGER.info("Product successfully removed: {}", productName);
 
                 productFound = true;
@@ -76,7 +72,6 @@ public class CartPage extends AbstractPage {
     }
 
     public void clearCart() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         LOGGER.info("Attempting to clear the cart.");
 
         while (!cartItems.isEmpty()) {
@@ -84,14 +79,17 @@ public class CartPage extends AbstractPage {
                 int initialCount = cartItems.size();
                 LOGGER.debug("Items in cart before removal: {}", initialCount);
 
-                List<ExtendedWebElement> removeButtons = getRemoveButtons();
-                if (!removeButtons.isEmpty()) {
+                List<ExtendedWebElement> deleteButtons = removeButtons;
+                if (!deleteButtons.isEmpty()) {
                     LOGGER.info("Clicking remove button for first item.");
-                    removeButtons.get(0).click();
+                    deleteButtons.get(0).click();
                 }
 
-                wait.until(driver -> getCartItems().size() < initialCount);
-                LOGGER.debug("Item removed, checking remaining items.");
+                if (cartItems.size() < initialCount) {
+                    LOGGER.debug("Item removed, checking remaining items.");
+                } else {
+                    LOGGER.warn("No item removed, retrying...");
+                }
 
             } catch (Exception e) {
                 LOGGER.error("Exception while clearing cart: {}", e.getMessage());
@@ -118,23 +116,7 @@ public class CartPage extends AbstractPage {
     }
 
     public void clickContinueShopping() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        LOGGER.info("Clicking 'Continue Shopping' button.");
-        wait.until(ExpectedConditions.elementToBeClickable(continueShoppingButton.getElement())).click();
-    }
-
-    public List<ExtendedWebElement> getCartItems() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        wait.until(driver -> !cartItems.isEmpty());
-        LOGGER.debug("Retrieved cart items: {}", cartItems.size());
-        return cartItems;
-    }
-
-    public List<ExtendedWebElement> getRemoveButtons() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        wait.until(driver -> !removeButtons.isEmpty());
-        LOGGER.debug("Retrieved remove buttons: {}", removeButtons.size());
-        return removeButtons;
+        continueShoppingButton.getElement().click();
     }
 
     public void clickCheckoutButton() {

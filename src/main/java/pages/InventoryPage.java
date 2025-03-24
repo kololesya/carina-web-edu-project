@@ -53,10 +53,9 @@ public class InventoryPage extends AbstractPage {
     }
 
     public boolean isPageOpened() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         try {
             LOGGER.info("Checking if the login page is opened...");
-            boolean isVisible = wait.until(ExpectedConditions.visibilityOf(inventoryList.getElement())) != null;
+            boolean isVisible = inventoryList.getElement() != null;
             LOGGER.info("Inventory page is visible: {}", isVisible);
             return isVisible;
         } catch (TimeoutException e) {
@@ -91,8 +90,6 @@ public class InventoryPage extends AbstractPage {
     }
 
     public void addProductToCartByName(String productName) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-
         for (ExtendedWebElement item : inventoryItems) {
             ExtendedWebElement itemNameElement = item.findExtendedWebElement(inventoryItemName.getBy());
 

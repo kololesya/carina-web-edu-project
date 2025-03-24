@@ -46,10 +46,9 @@ public class LoginPage extends AbstractPage {
     }
 
     public boolean isPageOpened() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         try {
             LOGGER.info("Checking if the login page is opened...");
-            boolean isVisible = wait.until(ExpectedConditions.visibilityOf(loginButton.getElement())) != null;
+            boolean isVisible = loginButton.getElement() != null;
             LOGGER.info("Login page is visible: {}", isVisible);
             return isVisible;
         } catch (TimeoutException e) {
