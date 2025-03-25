@@ -1,4 +1,4 @@
-package tests;
+package tests.web;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;

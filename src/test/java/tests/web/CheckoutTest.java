@@ -1,4 +1,4 @@
-package tests;
+package tests.web;
 
 import com.zebrunner.carina.core.IAbstractTest;
 import org.apache.logging.log4j.LogManager;

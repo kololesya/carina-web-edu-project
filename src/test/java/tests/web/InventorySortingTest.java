@@ -1,4 +1,4 @@
-package tests;
+package tests.web;
 
 import com.zebrunner.carina.core.IAbstractTest;
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.InventoryPage;
-import pages.LoginPage;
 
 import java.util.List;
 

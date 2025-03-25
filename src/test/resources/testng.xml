@@ -2,10 +2,10 @@
 <suite name="Carina Suite" parallel="tests" thread-count="2">
     <test name="SauceDemo">
         <classes>
-            <class name="tests.AddRemoveProductInCartTest"/>
-            <class name="tests.CheckoutTest"/>
-            <class name="tests.InventorySortingTest"/>
-            <class name="tests.LoginLogoutTest"/>
+            <class name="tests.web.AddRemoveProductInCartTest"/>
+            <class name="tests.web.CheckoutTest"/>
+            <class name="tests.web.InventorySortingTest"/>
+            <class name="tests.web.LoginLogoutTest"/>
         </classes>
     </test>
 </suite>
