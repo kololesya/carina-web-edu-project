@@ -37,31 +37,4 @@ public class getUserTest implements IAbstractTest {
         getUserNotFoundMethod.validateResponse(JSONCompareMode.STRICT, JsonCompareKeywords.ARRAY_CONTAINS.getKey());
         getUserNotFoundMethod.validateResponseAgainstSchema("api/_get/user_not_found_rs.json");
     }
-
-
-
-
-
-//    @Test()
-//    @MethodOwner(owner = "qpsdemo")
-//    public void testCreateUserMissingSomeFields() throws Exception {
-//        PostUserMethod api = new PostUserMethod();//        api.setProperties("api/users/user.properties");
-//        api.getProperties().remove("name");
-//        api.getProperties().remove("username");
-//        api.callAPIExpectSuccess();
-//        api.validateResponse();
-//    }
-//
-
-//
-//    @Test()
-//    @MethodOwner(owner = "qpsdemo")
-//    @TestPriority(Priority.P1)
-//    public void testDeleteUsers() {
-//        DeleteUserMethod deleteUserMethod = new DeleteUserMethod();
-//        deleteUserMethod.setProperties("api/users/user.properties");
-//        deleteUserMethod.callAPIExpectSuccess();
-//        deleteUserMethod.validateResponse();
-//    }
-
 }

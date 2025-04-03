@@ -1,11 +1,60 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Carina Suite" parallel="tests" thread-count="2">
-    <test name="SauceDemo">
+    <test name="LoginLogoutTest">
+        <parameter name="locale" value="en"/>
         <classes>
-            <class name="tests.web.AddRemoveProductInCartTest"/>
-            <class name="tests.web.CheckoutTest"/>
-            <class name="tests.web.InventorySortingTest"/>
-            <class name="tests.web.LoginLogoutTest"/>
+            <class name="tests.web.LoginTest">
+                <methods>
+                    <include name="testLoginWithDifferentLocales"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="LoginLogoutTest FR">
+        <parameter name="locale" value="fr"/>
+        <classes>
+            <class name="tests.web.LoginTest">
+                <methods>
+                    <include name="testLoginWithDifferentLocales"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="LoginLogoutTest ES">
+        <parameter name="locale" value="es"/>
+        <classes>
+            <class name="tests.web.LoginTest">
+                <methods>
+                    <include name="testLoginWithDifferentLocales"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="LoginLogoutTest PL">
+        <parameter name="locale" value="pl"/>
+        <classes>
+            <class name="tests.web.LoginTest">
+                <methods>
+                    <include name="testLoginWithDifferentLocales"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="LoginLogoutTest IT">
+        <parameter name="locale" value="it"/>
+        <classes>
+            <class name="tests.web.LoginTest">
+                <methods>
+                    <include name="testLoginWithDifferentLocales"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
+
+
+<!--
+<class name="tests.web.AddProductInCartTest"/>
+<class name="tests.web.CheckoutTest"/>
+<class name="tests.web.InventorySortingTest"/>
+-->
