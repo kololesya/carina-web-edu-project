@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CheckoutOverviewPage extends BasePage {
+
     @FindBy(className = "title")
     private ExtendedWebElement overviewTitle;
 

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductPage extends BasePage {
+
     @FindBy(xpath = "//div[@class='inventory_details_desc large_size']")
     private ExtendedWebElement productDescriptionElement;
 

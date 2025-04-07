@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class CartPage extends BasePage {
+
     @FindBy(xpath = "//div[@class='inventory_item_name']")
     private ExtendedWebElement productNameElement;
 

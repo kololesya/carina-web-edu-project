@@ -9,6 +9,8 @@ public class AddProductInCartTest extends BaseTest {
 
     private final String SAUCE_LABS_ONESIE = "Sauce Labs Onesie";
 
+    private static final String EXPECTED_CART_BADGE_COUNT = "1";
+
     @Test
     public void testVerifyCartBadgeText() {
         InventoryPage inventoryPage = new InventoryPage(getDriver());
@@ -43,8 +45,8 @@ public class AddProductInCartTest extends BaseTest {
         productPage.addToCart();
 
         Assert.assertTrue(inventoryPage.isCartBadgeVisible(), "Cart badge should be visible after adding a product");
-        Assert.assertEquals(inventoryPage.getCartBadgeText(), "1", "Cart badge should display '1' after adding one product");
-
+        Assert.assertEquals(inventoryPage.getCartBadgeText(), EXPECTED_CART_BADGE_COUNT,
+                "Cart badge should display '1' after adding one product");
     }
 
     @Test
