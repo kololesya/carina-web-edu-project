@@ -1,49 +1,64 @@
 package tests.web;
 
 import enums.SortType;
-import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.InventoryPage;
 
 import java.util.List;
 
 public class InventorySortingTest extends BaseTest {
 
-    @Test
-    public void testInventorySorting() {
+    @DataProvider(name = "sortingOptions")
+    public Object[][] sortingOptions() {
+        return new Object[][] {
+                { SortType.NAME_A_TO_Z },
+                { SortType.NAME_Z_TO_A },
+                { SortType.PRICE_LOW_TO_HIGH },
+                { SortType.PRICE_HIGH_TO_LOW }
+        };
+    }
+
+    @Test(dataProvider = "sortingOptions")
+    public void testInventorySorting(SortType sortType) {
+        SoftAssert softAssert = new SoftAssert();
         InventoryPage inventoryPage = new InventoryPage(getDriver());
 
-        for (SortType sortType : SortType.values()) {
-            inventoryPage.selectSortingOption(sortType.getOption());
+        inventoryPage.selectSortingOption(sortType.getOption());
 
-            switch (sortType) {
-                case NAME_A_TO_Z:
-                    List<String> sortedNamesAZ = inventoryPage.getProductNames();
-                    Assert.assertTrue(inventoryPage.isSortedAscending(sortedNamesAZ),
-                            "Products are sorted correctly by Name (A to Z)");
-                    break;
+        List<Double> sortedPrices;
+        List<String> sortedNames;
 
-                case NAME_Z_TO_A:
-                    List<String> sortedNamesZA = inventoryPage.getProductNames();
-                    Assert.assertTrue(inventoryPage.isSortedDescending(sortedNamesZA),
-                            "Products are sorted correctly by Name (Z to A)");
-                    break;
+        switch (sortType) {
+            case NAME_A_TO_Z:
+                sortedNames = inventoryPage.getProductNames();
+                softAssert.assertTrue(inventoryPage.isSortedAscending(sortedNames),
+                        "Products are sorted correctly by Name (A to Z)");
+                break;
 
-                case PRICE_LOW_TO_HIGH:
-                    List<Double> sortedPricesLowToHigh = inventoryPage.getProductPrices();
-                    Assert.assertTrue(inventoryPage.isSortedAscending(sortedPricesLowToHigh),
-                            "Products are sorted correctly by Price (Low to High)");
-                    break;
+            case NAME_Z_TO_A:
+                sortedNames = inventoryPage.getProductNames();
+                softAssert.assertTrue(inventoryPage.isSortedDescending(sortedNames),
+                        "Products are sorted correctly by Name (Z to A)");
+                break;
 
-                case PRICE_HIGH_TO_LOW:
-                    List<Double> sortedPricesHighToLow = inventoryPage.getProductPrices();
-                    Assert.assertTrue(inventoryPage.isSortedDescending(sortedPricesHighToLow),
-                            "Products are sorted correctly by Price (High to Low)");
-                    break;
+            case PRICE_LOW_TO_HIGH:
+                sortedPrices = inventoryPage.getProductPrices();
+                softAssert.assertTrue(inventoryPage.isSortedAscending(sortedPrices),
+                        "Products are sorted correctly by Price (Low to High)");
+                break;
 
-                default:
-                    throw new IllegalArgumentException("Unexpected sorting type: " + sortType);
-            }
+            case PRICE_HIGH_TO_LOW:
+                sortedPrices = inventoryPage.getProductPrices();
+                softAssert.assertTrue(inventoryPage.isSortedDescending(sortedPrices),
+                        "Products are sorted correctly by Price (High to Low)");
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unexpected sorting type: " + sortType);
         }
+
+        softAssert.assertAll();
     }
 }

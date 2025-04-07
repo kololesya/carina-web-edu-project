@@ -17,7 +17,7 @@ public class AddProductInCartTest extends BaseTest {
         Assert.assertTrue(inventoryPage.getCartBadgeText().isEmpty(), "Cart badge should be empty initially");
 
         inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
-        Assert.assertEquals(inventoryPage.getCartBadgeText(), "1", "Cart badge should display '1' after adding one product");
+        Assert.assertEquals(inventoryPage.getCartBadgeText(), EXPECTED_CART_BADGE_COUNT, "Cart badge should display '1' after adding one product");
     }
 
     @Test

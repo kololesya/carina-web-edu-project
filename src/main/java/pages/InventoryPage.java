@@ -39,10 +39,10 @@ public class InventoryPage extends BasePage {
     @FindBy(className = "product_sort_container")
     private ExtendedWebElement sortingDropdown;
 
-    @FindBy(xpath = "//div[@class='inventory_item_name']")
+    @FindBy(className = "inventory_item_name")
     private List<ExtendedWebElement> productNames;
 
-    @FindBy(xpath = "//div[@class='inventory_item_price']")
+    @FindBy(className = "inventory_item_price")
     private List<ExtendedWebElement> productPrices;
 
     public InventoryPage(WebDriver driver) {
