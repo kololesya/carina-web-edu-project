@@ -47,8 +47,11 @@ public class LoginTest implements IAbstractTest {
 
     @Test(dataProvider = "localeDataFromConfig")
     public void testLoginWithLocaleFromConfig(String locale) {
-        String url = "https://www.saucedemo.com/?locale=" + locale;
-        getDriver().get(url);
+        String url = R.CONFIG.get("url");
+        String localeParam = R.CONFIG.get("locale_param");
+
+        String localeUrl = url + localeParam + locale;
+        getDriver().get(localeUrl);
 
         String username = R.CONFIG.get("sauce_username");
         String password = R.CONFIG.getDecrypted("sauce_password");
