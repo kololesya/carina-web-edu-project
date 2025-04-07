@@ -26,7 +26,7 @@ public class CheckoutTest extends BaseTest{
 
         CheckoutOverviewPage overviewPage = new CheckoutOverviewPage(getDriver());
         List<String> expectedProducts = List.of(productName);
-        Assert.assertTrue(overviewPage.isProductInSummary(expectedProducts), "Product summary matches expected items!");
+        Assert.assertTrue(overviewPage.isProductInOrderSummary(expectedProducts), "Product summary matches expected items!");
 
         overviewPage.clickFinishButton();
 

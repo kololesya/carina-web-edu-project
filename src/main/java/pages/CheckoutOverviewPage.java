@@ -15,7 +15,7 @@ public class CheckoutOverviewPage extends BasePage {
     private ExtendedWebElement finishButton;
 
     @FindBy(className = "inventory_item_name")
-    private List<ExtendedWebElement> orderSummaryItems;
+    private List<ExtendedWebElement> inventoryItemNames;
 
     public CheckoutOverviewPage(WebDriver driver) {
         super(driver);
@@ -29,12 +29,13 @@ public class CheckoutOverviewPage extends BasePage {
         finishButton.click();
     }
 
-    public boolean isProductInSummary(List<String> expectedProducts) {
-        List<String> actualProducts = orderSummaryItems.stream()
-                .map(item -> item.getText().trim())
-                .collect(Collectors.toList());
-
-        return actualProducts.equals(expectedProducts);
+    public boolean isProductInOrderSummary(List<String> expectedProducts) {
+        return getActualProductNames().equals(expectedProducts);
     }
 
+    private List<String> getActualProductNames() {
+        return inventoryItemNames.stream()
+                .map(item -> item.getText().trim())
+                .collect(Collectors.toList());
+    }
 }
