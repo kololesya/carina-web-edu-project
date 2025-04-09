@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 
 public class BaseTest implements IAbstractTest {
+
     @BeforeMethod
     public void loginToSauceDemo() {
         LoginPage loginPage = new LoginPage(getDriver());

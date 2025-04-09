@@ -6,15 +6,11 @@ import pages.*;
 
 import java.util.List;
 
-public class CheckoutTest extends BaseTest{
+import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
+
+public class CheckoutTest extends AddToCartBeforeTest{
     @Test
     public void testCheckoutProcess() {
-        String productName = "Sauce Labs Backpack";
-
-        InventoryPage inventoryPage = new InventoryPage(getDriver());
-        inventoryPage.addProductToCartByName(productName);
-        inventoryPage.clickCartButton();
-
         CartPage cartPage = new CartPage(getDriver());
         cartPage.clickCheckoutButton();
 
@@ -25,7 +21,7 @@ public class CheckoutTest extends BaseTest{
         checkoutPage.clickContinue();
 
         CheckoutOverviewPage overviewPage = new CheckoutOverviewPage(getDriver());
-        List<String> expectedProducts = List.of(productName);
+        List<String> expectedProducts = List.of(SAUCE_LABS_ONESIE);
         Assert.assertTrue(overviewPage.isProductInOrderSummary(expectedProducts), "Product summary matches expected items!");
 
         overviewPage.clickFinishButton();
@@ -37,10 +33,8 @@ public class CheckoutTest extends BaseTest{
 
     @Test
     public void testCheckoutWithEmptyCart() {
-        InventoryPage inventoryPage = new InventoryPage(getDriver());
-        inventoryPage.clickCartButton();
-
         CartPage cartPage = new CartPage(getDriver());
+        cartPage.clearCart();
         Assert.assertTrue(cartPage.isCartEmpty(), "Cart should be empty before checkout.");
 
         cartPage.clickCheckoutButton();

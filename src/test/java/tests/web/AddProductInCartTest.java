@@ -5,11 +5,10 @@ import org.testng.annotations.Test;
 
 import pages.*;
 
+import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
+import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
+
 public class AddProductInCartTest extends BaseTest {
-
-    private final String SAUCE_LABS_ONESIE = "Sauce Labs Onesie";
-
-    private static final String EXPECTED_CART_BADGE_COUNT = "1";
 
     @Test
     public void testVerifyCartBadgeText() {
