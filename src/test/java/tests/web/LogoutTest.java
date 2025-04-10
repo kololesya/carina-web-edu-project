@@ -2,6 +2,7 @@ package tests.web;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import pages.InventoryPage;
 import pages.LoginPage;
 

@@ -3,7 +3,12 @@ package tests.web;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pages.*;
+import pages.InventoryPage;
+import pages.CartPage;
+import pages.ProductPage;
+
+import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
+import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
 
 import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
 import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;

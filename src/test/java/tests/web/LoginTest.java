@@ -1,11 +1,13 @@
 package tests.web;
 
-import com.zebrunner.carina.core.IAbstractTest;
-import com.zebrunner.carina.utils.R;
-import com.zebrunner.carina.utils.config.Configuration;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import com.zebrunner.carina.core.IAbstractTest;
+import com.zebrunner.carina.utils.R;
+import com.zebrunner.carina.utils.config.Configuration;
+
 import pages.InventoryPage;
 import pages.LoginPage;
 

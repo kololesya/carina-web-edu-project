@@ -1,12 +1,14 @@
 package tests.web;
 
-import enums.SortType;
+import java.util.List;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
 import pages.InventoryPage;
 
-import java.util.List;
+import enums.SortType;
 
 public class InventorySortingTest extends BaseTest {
 

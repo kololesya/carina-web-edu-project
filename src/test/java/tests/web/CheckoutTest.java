@@ -1,16 +1,26 @@
 package tests.web;
 
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.*;
 
-import java.util.List;
+import pages.InventoryPage;
+import pages.CartPage;
+import pages.CheckoutPage;
+import pages.CheckoutOverviewPage;
+import pages.CheckoutCompletePage;
 
 import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
 
-public class CheckoutTest extends AddToCartBeforeTest{
+public class CheckoutTest extends BaseTest{
     @Test
     public void testCheckoutProcess() {
+
+        InventoryPage inventoryPage = new InventoryPage(getDriver());
+        inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
+        inventoryPage.clickCartButton();
+
         CartPage cartPage = new CartPage(getDriver());
         cartPage.clickCheckoutButton();
 
@@ -33,8 +43,10 @@ public class CheckoutTest extends AddToCartBeforeTest{
 
     @Test
     public void testCheckoutWithEmptyCart() {
+        InventoryPage inventoryPage = new InventoryPage(getDriver());
+        inventoryPage.clickCartButton();
+
         CartPage cartPage = new CartPage(getDriver());
-        cartPage.clearCart();
         Assert.assertTrue(cartPage.isCartEmpty(), "Cart should be empty before checkout.");
 
         cartPage.clickCheckoutButton();
