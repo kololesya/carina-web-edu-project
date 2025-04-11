@@ -1,10 +1,11 @@
 package pages;
 
-import com.zebrunner.carina.utils.config.Configuration;
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import com.zebrunner.carina.utils.config.Configuration;
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public class LoginPage extends BasePage {
     @FindBy(id = "login-button")
     private ExtendedWebElement loginButton;
 
-    @FindBy(xpath = "//h3[@data-test='error']")
+    @FindBy(xpath = "//h3[contains(@data-test, 'error')]")
     private ExtendedWebElement errorMessage;
 
     public LoginPage(WebDriver driver) {

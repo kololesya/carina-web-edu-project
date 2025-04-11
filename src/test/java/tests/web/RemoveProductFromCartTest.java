@@ -6,15 +6,13 @@ import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.InventoryPage;
 
+import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
 import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
 
-public class RemoveProductFromCartTest extends BaseTest{
+public class RemoveProductFromCartTest extends AddProductInCartBeforeTest{
 
     @Test
     public void testRemoveProductFromCart() {
-        InventoryPage inventoryPage = new InventoryPage(getDriver());
-        inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
-        inventoryPage.clickCartButton();
 
         CartPage cartPage = new CartPage(getDriver());
 
@@ -26,16 +24,11 @@ public class RemoveProductFromCartTest extends BaseTest{
     public void testClearCartAndContinueShopping() {
         InventoryPage inventoryPage = new InventoryPage(getDriver());
 
-        inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
-        inventoryPage.addProductToCartByName("Sauce Labs Bike Light");
-
-        Assert.assertEquals(inventoryPage.getCartBadgeText(), "2", "Cart badge should display '2' after adding two products");
-
-        inventoryPage.clickCartButton();
         CartPage cartPage = new CartPage(getDriver());
+        Assert.assertEquals(inventoryPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT);
         cartPage.clearCart();
 
-        Assert.assertTrue(cartPage.isCartEmpty(), "Cart should be empty after clearing");
+        Assert.assertTrue(inventoryPage.getHeaderMenuComponent().isCartEmpty(), "Cart should be empty after clearing");
         cartPage.clickContinueShopping();
 
         Assert.assertTrue(inventoryPage.isPageOpened(), "User should be returned to the inventory page");

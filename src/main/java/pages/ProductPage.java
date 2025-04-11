@@ -1,12 +1,13 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+
 public class ProductPage extends BasePage {
 
-    @FindBy(xpath = "//div[@class='inventory_details_desc large_size']")
+    @FindBy(xpath = "//div[contains(@class, 'inventory_details_desc')]")
     private ExtendedWebElement productDescriptionElement;
 
     @FindBy(id = "add-to-cart")

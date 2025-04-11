@@ -12,8 +12,8 @@ public class LogoutTest extends BaseTest {
         InventoryPage inventoryPage = new InventoryPage(getDriver());
         Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is opened after login.");
 
-        inventoryPage.openMenu();
-        inventoryPage.logout();
+        inventoryPage.getHeaderMenuComponent().openMenu();
+        inventoryPage.getHeaderMenuComponent().logout();
 
         LoginPage loginPage = new LoginPage(getDriver());
         Assert.assertTrue(loginPage.isPageOpened(), "Login page should be shown after logout.");

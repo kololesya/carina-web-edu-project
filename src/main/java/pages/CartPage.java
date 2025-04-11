@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CartPage extends BasePage {
 
-    @FindBy(xpath = "//div[@class='inventory_item_name']")
+    @FindBy(xpath = "//div[contains(@class='inventory_item_name')]")
     private ExtendedWebElement productNameElement;
 
     @FindBy(className = "cart_item")

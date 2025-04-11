@@ -1,6 +1,7 @@
 package pages;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import components.HeaderMenuComponent;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -15,14 +16,8 @@ public class InventoryPage extends BasePage {
     @FindBy(id = "logout_sidebar_link")
     private ExtendedWebElement logoutButton;
 
-    @FindBy(css = "#shopping_cart_container a")
-    private ExtendedWebElement cartButton;
-
     @FindBy(className = "inventory_list")
     private ExtendedWebElement inventoryList;
-
-    @FindBy(className = "shopping_cart_badge")
-    private List<ExtendedWebElement> cartBadgeElements;
 
     @FindBy(className = "inventory_item")
     private List<ExtendedWebElement> inventoryItems;
@@ -45,8 +40,15 @@ public class InventoryPage extends BasePage {
     @FindBy(className = "inventory_item_price")
     private List<ExtendedWebElement> productPrices;
 
+    @FindBy(className="primary_header")
+    private HeaderMenuComponent primaryHeader;
+
     public InventoryPage(WebDriver driver) {
         super(driver);
+    }
+
+    public HeaderMenuComponent getHeaderMenuComponent() {
+        return primaryHeader;
     }
 
     @Override
@@ -58,43 +60,16 @@ public class InventoryPage extends BasePage {
         }
     }
 
-    public void openMenu() {
-        menuButton.click();
-    }
-
-    public void logout() {
-        logoutButton.click();
-    }
-
-    public void clickCartButton() {
-        cartButton.click();
-    }
-
-    public boolean isCartBadgeVisible() {
-        return !cartBadgeElements.isEmpty();
-    }
-
-    public String getCartBadgeText() {
-        if (!cartBadgeElements.isEmpty()) {
-            return cartBadgeElements.get(0).getText();
-        }
-        return "";
-    }
-
     public void addProductToCartByName(String productName) {
-        for (ExtendedWebElement item : inventoryItems) {
-            ExtendedWebElement itemNameElement = item.findExtendedWebElement(inventoryItemName.getBy());
+        for (int i = 0; i < inventoryItems.size(); i++) {
+            ExtendedWebElement itemNameElement = inventoryItems.get(i).findExtendedWebElement(inventoryItemName.getBy());
 
             if (itemNameElement.getText().equalsIgnoreCase(productName)) {
-                String buttonId = "add-to-cart-" + productName.toLowerCase().replace(" ", "-");
+                ExtendedWebElement addToCartButton = addToCartButtons.get(i);
 
-                for (ExtendedWebElement button : addToCartButtons) {
-                    if (button.getAttribute("id").contains(buttonId)) {
-                        button.click();
-                        System.out.println("Product added to cart: " + productName);
-                        return;
-                    }
-                }
+                addToCartButton.click();
+                System.out.println("Product added to cart: " + itemNameElement.getText());
+                return;
             }
         }
 

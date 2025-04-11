@@ -1,8 +1,9 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
 import java.util.List;
 import java.util.stream.Collectors;

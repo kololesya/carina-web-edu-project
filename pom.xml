@@ -20,6 +20,7 @@
             <groupId>com.zebrunner</groupId>
             <artifactId>carina-core</artifactId>
             <version>1.3.0</version>
+            <scope>import</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.zebrunner/carina-webdriver -->
@@ -40,6 +41,7 @@
             <groupId>com.zebrunner</groupId>
             <artifactId>carina-api</artifactId>
             <version>1.2.4</version>
+            <scope>import</scope>
         </dependency>
 
         <dependency>

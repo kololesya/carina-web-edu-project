@@ -1,7 +1,8 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
+
+import com.zebrunner.carina.webdriver.gui.AbstractPage;
 
 import java.util.Optional;
 

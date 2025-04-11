@@ -10,27 +10,23 @@ import pages.ProductPage;
 import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
 import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
 
-import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
-import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
-
 public class AddProductInCartTest extends BaseTest {
 
     @Test
     public void testVerifyCartBadgeText() {
         InventoryPage inventoryPage = new InventoryPage(getDriver());
-        Assert.assertTrue(inventoryPage.getCartBadgeText().isEmpty(), "Cart badge should be empty initially");
+
+        Assert.assertTrue(inventoryPage.getHeaderMenuComponent().getCartBadgeText().isEmpty(), "Cart badge should be empty initially");
 
         inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
-        Assert.assertEquals(inventoryPage.getCartBadgeText(), EXPECTED_CART_BADGE_COUNT, "Cart badge should display '1' after adding one product");
+        Assert.assertEquals(inventoryPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT, "Cart badge should display '1' after adding one product");
     }
 
     @Test
     public void testVerifyProductInCart() {
         InventoryPage inventoryPage = new InventoryPage(getDriver());
         inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
-        Assert.assertTrue(inventoryPage.isCartBadgeVisible(), "Cart badge should be visible after adding a product");
-
-        inventoryPage.clickCartButton();
+        inventoryPage.getHeaderMenuComponent().clickCartButton();
 
         CartPage cartPage = new CartPage(getDriver());
         String actualProductName = cartPage.getProductNameInCart();
@@ -48,8 +44,8 @@ public class AddProductInCartTest extends BaseTest {
 
         productPage.addToCart();
 
-        Assert.assertTrue(inventoryPage.isCartBadgeVisible(), "Cart badge should be visible after adding a product");
-        Assert.assertEquals(inventoryPage.getCartBadgeText(), EXPECTED_CART_BADGE_COUNT,
+        Assert.assertFalse(inventoryPage.getHeaderMenuComponent().isCartEmpty(), "Cart badge should be visible after adding a product");
+        Assert.assertEquals(inventoryPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT,
                 "Cart badge should display '1' after adding one product");
     }
 
