@@ -6,16 +6,16 @@ import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
-
-import java.util.List;
+import pages.CartPage;
+import pages.LoginPage;
 
 public class HeaderMenuComponent extends AbstractUIObject {
 
     @FindBy(className = "shopping_cart_link")
     private ExtendedWebElement cartButton;
 
-    @FindBy(className = "shopping_cart_badge")
-    private List<ExtendedWebElement> cartBadgeElements;
+    @FindBy(id="shopping_cart_container")
+    private ExtendedWebElement cartBadge;
 
     @FindBy(id = "react-burger-menu-btn")
     private ExtendedWebElement menuButton;
@@ -31,22 +31,19 @@ public class HeaderMenuComponent extends AbstractUIObject {
         menuButton.click();
     }
 
-    public void logout() {
+    public LoginPage logout() {
         logoutButton.click();
+
+        return new LoginPage(getDriver());
     }
 
-    public void clickCartButton() {
+    public CartPage clickCartButton() {
         cartButton.click();
-    }
-
-    public boolean isCartEmpty() {
-        return cartBadgeElements.isEmpty();
+        
+        return new CartPage(getDriver());
     }
 
     public String getCartBadgeText() {
-        if (!cartBadgeElements.isEmpty()) {
-            return cartBadgeElements.get(0).getText();
-        }
-        return "";
+        return cartBadge.getText().trim();
     }
 }

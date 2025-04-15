@@ -28,10 +28,9 @@ public class RemoveProductFromCartTest extends AddProductInCartBeforeTest{
         Assert.assertEquals(inventoryPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT);
         cartPage.clearCart();
 
-        Assert.assertTrue(inventoryPage.getHeaderMenuComponent().isCartEmpty(), "Cart should be empty after clearing");
+        Assert.assertTrue(inventoryPage.getHeaderMenuComponent().getCartBadgeText().isEmpty(), "Cart should be empty after clearing");
         cartPage.clickContinueShopping();
 
         Assert.assertTrue(inventoryPage.isPageOpened(), "User should be returned to the inventory page");
     }
-
 }

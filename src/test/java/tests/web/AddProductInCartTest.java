@@ -44,7 +44,7 @@ public class AddProductInCartTest extends BaseTest {
 
         productPage.addToCart();
 
-        Assert.assertFalse(inventoryPage.getHeaderMenuComponent().isCartEmpty(), "Cart badge should be visible after adding a product");
+        Assert.assertFalse(inventoryPage.getHeaderMenuComponent().getCartBadgeText().isEmpty(), "Cart badge should be visible after adding a product");
         Assert.assertEquals(inventoryPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT,
                 "Cart badge should display '1' after adding one product");
     }
