@@ -39,7 +39,7 @@ public class HeaderMenuComponent extends AbstractUIObject {
 
     public CartPage clickCartButton() {
         cartButton.click();
-        
+
         return new CartPage(getDriver());
     }
 
