@@ -27,8 +27,10 @@ public class CheckoutOverviewPage extends BasePage {
         return overviewTitle.getText().equals("Checkout: Overview");
     }
 
-    public void clickFinishButton() {
+    public CheckoutCompletePage clickFinishButton() {
+
         finishButton.click();
+        return new CheckoutCompletePage(getDriver());
     }
 
     public boolean isProductInOrderSummary(List<String> expectedProducts) {

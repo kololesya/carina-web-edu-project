@@ -35,25 +35,25 @@ public class InventorySortingTest extends BaseTest {
         switch (sortType) {
             case NAME_A_TO_Z:
                 sortedNames = inventoryPage.getProductNames();
-                softAssert.assertTrue(inventoryPage.isSortedAscending(sortedNames),
+                softAssert.assertTrue(inventoryPage.isSorted(sortedNames, sortType),
                         "Products are sorted correctly by Name (A to Z)");
                 break;
 
             case NAME_Z_TO_A:
                 sortedNames = inventoryPage.getProductNames();
-                softAssert.assertTrue(inventoryPage.isSortedDescending(sortedNames),
+                softAssert.assertTrue(inventoryPage.isSorted(sortedNames, sortType),
                         "Products are sorted correctly by Name (Z to A)");
                 break;
 
             case PRICE_LOW_TO_HIGH:
                 sortedPrices = inventoryPage.getProductPrices();
-                softAssert.assertTrue(inventoryPage.isSortedAscending(sortedPrices),
+                softAssert.assertTrue(inventoryPage.isSorted(sortedPrices, sortType),
                         "Products are sorted correctly by Price (Low to High)");
                 break;
 
             case PRICE_HIGH_TO_LOW:
                 sortedPrices = inventoryPage.getProductPrices();
-                softAssert.assertTrue(inventoryPage.isSortedDescending(sortedPrices),
+                softAssert.assertTrue(inventoryPage.isSorted(sortedPrices, sortType),
                         "Products are sorted correctly by Price (High to Low)");
                 break;
 

@@ -18,7 +18,7 @@ public class BasePage extends AbstractPage {
     }
 
     public void open(String url) {
-        getDriver().get(url); // Открываем URL
+        getDriver().get(url);
     }
 
     public Optional<String> getUrl() {

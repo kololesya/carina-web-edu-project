@@ -26,22 +26,12 @@ public class ProductPage extends BasePage {
     }
 
     public void addToCart() {
-        if (addToCartButton.isPresent() && addToCartButton.isEnabled()) {
-            addToCartButton.click();
-        } else {
-            throw new RuntimeException("Add to Cart button is not clickable.");
-        }
+        addToCartButton.click();
     }
 
-    public String getProductDescription() {
-        return productDescriptionElement.getText().trim();
-    }
+    public InventoryPage returnToInventoryPage(){
+        backToProductsButton.click();
 
-    public void returnToInventoryPage(){
-        if (backToProductsButton.isPresent()) {
-            backToProductsButton.click();
-        } else {
-            throw new RuntimeException("Back to Products button is not present.");
-        }
+        return new InventoryPage(getDriver());
     }
 }

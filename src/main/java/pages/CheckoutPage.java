@@ -35,7 +35,9 @@ public class CheckoutPage extends BasePage {
         zipCodeField.type(zipCode);
     }
 
-    public void clickContinue() {
+    public CheckoutOverviewPage clickContinue() {
+
         continueButton.click();
+        return new CheckoutOverviewPage(getDriver());
     }
 }

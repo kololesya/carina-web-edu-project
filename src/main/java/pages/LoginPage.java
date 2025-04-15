@@ -41,22 +41,11 @@ public class LoginPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        try {
-            return loginButton.isPresent();
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return loginButton.isPresent();
     }
 
     public boolean isErrorMessageDisplayed() {
-        try {
-            return errorMessage.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
+        return errorMessage.isDisplayed();
 
-    public String getErrorMessage() {
-        return errorMessage.getText().trim();
     }
 }

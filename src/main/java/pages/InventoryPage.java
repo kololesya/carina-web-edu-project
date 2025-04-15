@@ -1,20 +1,18 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import components.HeaderMenuComponent;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InventoryPage extends BasePage {
-    @FindBy(id = "react-burger-menu-btn")
-    private ExtendedWebElement menuButton;
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
-    @FindBy(id = "logout_sidebar_link")
-    private ExtendedWebElement logoutButton;
+import components.HeaderMenuComponent;
+import components.InventoryItemComponent;
+import enums.SortType;
+
+public class InventoryPage extends BasePage {
 
     @FindBy(className = "inventory_list")
     private ExtendedWebElement inventoryList;
@@ -43,6 +41,9 @@ public class InventoryPage extends BasePage {
     @FindBy(className="primary_header")
     private HeaderMenuComponent primaryHeader;
 
+    @FindBy(id = "inventory_container")
+    private InventoryItemComponent inventoryContainer;
+
     public InventoryPage(WebDriver driver) {
         super(driver);
     }
@@ -51,13 +52,13 @@ public class InventoryPage extends BasePage {
         return primaryHeader;
     }
 
+    public InventoryItemComponent getInventoryItemComponent() {
+        return inventoryContainer;
+    }
+
     @Override
     public boolean isPageOpened() {
-        try {
-            return inventoryList.isPresent();
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return inventoryList.isPresent();
     }
 
     public void addProductToCartByName(String productName) {
@@ -68,7 +69,6 @@ public class InventoryPage extends BasePage {
                 ExtendedWebElement addToCartButton = addToCartButtons.get(i);
 
                 addToCartButton.click();
-                System.out.println("Product added to cart: " + itemNameElement.getText());
                 return;
             }
         }
@@ -76,13 +76,13 @@ public class InventoryPage extends BasePage {
         throw new RuntimeException("Product not found in inventory: " + productName);
     }
 
-    public void openProductPage(String productName) {
+    public ProductPage openProductPage(String productName) {
         for (ExtendedWebElement productLink : productLinks) {
             String itemName = productLink.getText().trim();
 
             if (itemName.equalsIgnoreCase(productName)) {
                 productLink.click();
-                return;
+                return new ProductPage(getDriver());
             }
         }
         throw new RuntimeException("Product not found in inventory: " + productName);
@@ -104,18 +104,15 @@ public class InventoryPage extends BasePage {
                 .collect(Collectors.toList());
     }
 
-    public boolean isSortedAscending(List<? extends Comparable> list) {
+    public boolean isSorted(List<? extends Comparable> list, SortType sortType) {
         for (int i = 0; i < list.size() - 1; i++) {
-            if (list.get(i).compareTo(list.get(i + 1)) > 0) {
+            int comparisonResult = list.get(i).compareTo(list.get(i + 1));
+
+            if ((sortType == SortType.NAME_A_TO_Z || sortType == SortType.PRICE_LOW_TO_HIGH) && comparisonResult > 0) {
                 return false;
             }
-        }
-        return true;
-    }
 
-    public boolean isSortedDescending(List<? extends Comparable> list) {
-        for (int i = 0; i < list.size() - 1; i++) {
-            if (list.get(i).compareTo(list.get(i + 1)) < 0) {
+            else if ((sortType == SortType.NAME_Z_TO_A || sortType == SortType.PRICE_HIGH_TO_LOW) && comparisonResult < 0) {
                 return false;
             }
         }

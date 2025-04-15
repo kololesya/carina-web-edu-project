@@ -2,7 +2,6 @@ package pages;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -34,11 +33,7 @@ public class CartPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        try {
-            return checkoutButton.isPresent();
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return checkoutButton.isPresent();
     }
 
     public String getProductNameInCart() {
@@ -74,8 +69,9 @@ public class CartPage extends BasePage {
         continueShoppingButton.click();
     }
 
-    public void clickCheckoutButton() {
+    public CheckoutPage clickCheckoutButton() {
         checkoutButton.click();
+        return new CheckoutPage(getDriver());
     }
 
     public boolean isCartEmpty() {
