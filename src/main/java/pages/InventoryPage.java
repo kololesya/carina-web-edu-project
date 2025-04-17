@@ -1,34 +1,21 @@
 package pages;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.support.FindBy;
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InventoryPage extends AbstractPage {
-    private static final Logger LOGGER = LogManager.getLogger(CartPage.class);
-    @FindBy(id = "react-burger-menu-btn")
-    private ExtendedWebElement menuButton;
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
-    @FindBy(id = "logout_sidebar_link")
-    private ExtendedWebElement logoutButton;
+import components.HeaderMenuComponent;
+import components.InventoryItemComponent;
+import enums.SortType;
 
-    @FindBy(css = "#shopping_cart_container a")
-    private ExtendedWebElement cartButton;
+public class InventoryPage extends BasePage {
 
     @FindBy(className = "inventory_list")
     private ExtendedWebElement inventoryList;
-
-    @FindBy(className = "shopping_cart_badge")
-    private List<ExtendedWebElement> cartBadgeElements;
 
     @FindBy(className = "inventory_item")
     private List<ExtendedWebElement> inventoryItems;
@@ -36,86 +23,99 @@ public class InventoryPage extends AbstractPage {
     @FindBy(className = "inventory_item_name")
     private ExtendedWebElement inventoryItemName;
 
-    @FindBy(xpath = ".//button[contains(@id, 'add-to-cart')]")
-    private ExtendedWebElement addToCartButton;
+    @FindBy(xpath = "//div[contains(@class, 'inventory_item')]//a[contains(@id, 'title_link')]")
+    private List<ExtendedWebElement> productLinks;
+
+    @FindBy(xpath = "//button[contains(@class, 'btn_inventory')]")
+    private List<ExtendedWebElement> addToCartButtons;
 
     @FindBy(className = "product_sort_container")
     private ExtendedWebElement sortingDropdown;
 
-    @FindBy(xpath = "//div[@class='inventory_item_name']")
+    @FindBy(className = "inventory_item_name")
     private List<ExtendedWebElement> productNames;
 
-    @FindBy(xpath = "//div[@class='inventory_item_price']")
+    @FindBy(className = "inventory_item_price")
     private List<ExtendedWebElement> productPrices;
 
+    @FindBy(className="primary_header")
+    private HeaderMenuComponent primaryHeader;
+
+    @FindBy(id = "inventory_container")
+    private InventoryItemComponent inventoryContainer;
+
     public InventoryPage(WebDriver driver) {
-            super(driver);
+        super(driver);
     }
 
+    public HeaderMenuComponent getHeaderMenuComponent() {
+        return primaryHeader;
+    }
+
+    public InventoryItemComponent getInventoryItemComponent() {
+        return inventoryContainer;
+    }
+
+    @Override
     public boolean isPageOpened() {
-        try {
-            LOGGER.info("Checking if the login page is opened...");
-            boolean isVisible = inventoryList.getElement() != null;
-            LOGGER.info("Inventory page is visible: {}", isVisible);
-            return isVisible;
-        } catch (TimeoutException e) {
-            LOGGER.error("Inventory page did not open within the timeout.", e);
-            return false;
-        }
-    }
-
-    public void openMenu() {
-        menuButton.click();
-        LOGGER.info("Clicked menu button.");
-    }
-
-    public void logout() {
-        logoutButton.click();
-        LOGGER.info("Clicked logout button.");
-    }
-
-    public void clickCartButton() {
-        cartButton.click();
-    }
-
-    public boolean isCartBadgeVisible() {
-        return !cartBadgeElements.isEmpty();
-    }
-
-    public String getCartBadgeText() {
-        if (!cartBadgeElements.isEmpty()) {
-            return cartBadgeElements.get(0).getText();
-        }
-        return "";
+        return inventoryList.isPresent();
     }
 
     public void addProductToCartByName(String productName) {
-        for (ExtendedWebElement item : inventoryItems) {
-            ExtendedWebElement itemNameElement = item.findExtendedWebElement(inventoryItemName.getBy());
+        for (int i = 0; i < inventoryItems.size(); i++) {
+            ExtendedWebElement itemNameElement = inventoryItems.get(i).findExtendedWebElement(inventoryItemName.getBy());
 
             if (itemNameElement.getText().equalsIgnoreCase(productName)) {
-                LOGGER.info("Adding product to cart: " + productName);
+                ExtendedWebElement addToCartButton = addToCartButtons.get(i);
+
                 addToCartButton.click();
                 return;
             }
         }
 
-        LOGGER.warn("Product not found: " + productName);
+        throw new RuntimeException("Product not found in inventory: " + productName);
+    }
+
+    public ProductPage openProductPage(String productName) {
+        for (ExtendedWebElement productLink : productLinks) {
+            String itemName = productLink.getText().trim();
+
+            if (itemName.equalsIgnoreCase(productName)) {
+                productLink.click();
+                return new ProductPage(getDriver());
+            }
+        }
         throw new RuntimeException("Product not found in inventory: " + productName);
     }
 
     public void selectSortingOption(String option) {
-        LOGGER.info("Selecting sorting option: {}", option);
         sortingDropdown.select(option);
     }
 
     public List<String> getProductNames() {
-        return productNames.stream().map(ExtendedWebElement::getText).collect(Collectors.toList());
+        return productNames.stream()
+                .map(ExtendedWebElement::getText)
+                .collect(Collectors.toList());
     }
 
     public List<Double> getProductPrices() {
         return productPrices.stream()
                 .map(priceElement -> Double.parseDouble(priceElement.getText().replace("$", "")))
                 .collect(Collectors.toList());
+    }
+
+    public boolean isSorted(List<? extends Comparable> list, SortType sortType) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            int comparisonResult = list.get(i).compareTo(list.get(i + 1));
+
+            if ((sortType == SortType.NAME_A_TO_Z || sortType == SortType.PRICE_LOW_TO_HIGH) && comparisonResult > 0) {
+                return false;
+            }
+
+            else if ((sortType == SortType.NAME_Z_TO_A || sortType == SortType.PRICE_HIGH_TO_LOW) && comparisonResult < 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

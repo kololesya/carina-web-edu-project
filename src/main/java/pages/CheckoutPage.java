@@ -1,19 +1,11 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class CheckoutPage extends AbstractPage {
-    private static final Logger LOGGER = LogManager.getLogger(CartPage.class);
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
-    public CheckoutPage(WebDriver driver) {
-        super(driver);
-    }
-
+public class CheckoutPage extends BasePage {
     @FindBy(className = "title")
     private ExtendedWebElement checkoutTitle;
 
@@ -29,19 +21,23 @@ public class CheckoutPage extends AbstractPage {
     @FindBy(id = "continue")
     private ExtendedWebElement continueButton;
 
+    public CheckoutPage(WebDriver driver) {
+        super(driver);
+    }
+
     public boolean isPageOpened() {
-        return checkoutTitle.getText().equals("Checkout: Your Information");
+        return checkoutTitle.isPresent() && checkoutTitle.getText().equals("Checkout: Your Information");
     }
 
     public void fillCheckoutForm(String firstName, String lastName, String zipCode) {
-        LOGGER.info("Filling checkout form with firstName: {}, lastName: {}, zipCode: {}", firstName, lastName, zipCode);
         firstNameField.type(firstName);
         lastNameField.type(lastName);
         zipCodeField.type(zipCode);
     }
 
-    public void clickContinue() {
-        LOGGER.info("Clicking 'Continue' button.");
+    public CheckoutOverviewPage clickContinue() {
+
         continueButton.click();
+        return new CheckoutOverviewPage(getDriver());
     }
 }

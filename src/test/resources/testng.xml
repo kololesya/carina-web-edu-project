@@ -1,11 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Carina Suite" parallel="tests" thread-count="2">
-    <test name="SauceDemo">
+    <test name="Web Tests">
         <classes>
-            <class name="tests.web.AddRemoveProductInCartTest"/>
+            <class name="tests.web.AddProductInCartTest"/>
             <class name="tests.web.CheckoutTest"/>
             <class name="tests.web.InventorySortingTest"/>
-            <class name="tests.web.LoginLogoutTest"/>
+            <class name="tests.web.LoginTest"/>
+            <class name="tests.web.LogoutTest"/>
+            <class name="tests.web.RemoveProductFromCartTest"/>
         </classes>
     </test>
 </suite>

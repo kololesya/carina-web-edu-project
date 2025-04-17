@@ -43,9 +43,21 @@
         </dependency>
 
         <dependency>
+            <groupId>com.zebrunner</groupId>
+            <artifactId>carina-crypto</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.8.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zebrunner</groupId>
+            <artifactId>carina-utils</artifactId>
+            <version>1.2.6</version>
         </dependency>
 
         <dependency>
@@ -68,28 +80,23 @@
             </exclusions>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.testng</groupId>-->
+<!--            <artifactId>testng</artifactId>-->
+<!--            <version>7.8.0</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.7.1</version>
+            <version>7.8.0</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>4.3.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.21.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.21.0</version>
         </dependency>
 
         <dependency>
@@ -103,6 +110,7 @@
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.17.1</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -139,5 +147,15 @@
                 </includes>
             </resource>
         </resources>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.json</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
 </project>
