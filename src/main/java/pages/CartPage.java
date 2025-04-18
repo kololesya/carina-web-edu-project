@@ -1,6 +1,7 @@
 package pages;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import components.HeaderMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -26,8 +27,15 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//button[contains(@id, 'remove')]")
     private List<ExtendedWebElement> removeButtons;
 
+    @FindBy(className = "primary_header")
+    private HeaderMenuComponent primaryHeader;
+
     public CartPage(WebDriver driver) {
         super(driver);
+    }
+
+    public HeaderMenuComponent getHeaderMenuComponent() {
+        return primaryHeader;
     }
 
     @Override

@@ -12,7 +12,7 @@ import pages.CheckoutCompletePage;
 
 import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
 
-public class CheckoutTest extends AddProductInCartBeforeTest{
+public class CheckoutTest extends BaseTest{
     @Test
     public void testCheckoutProcess() {
 

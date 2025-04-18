@@ -9,6 +9,8 @@ import pages.LoginPage;
 public class LogoutTest extends BaseTest {
     @Test
     public void testLogout() {
+        loginToSauceDemo();
+
         InventoryPage inventoryPage = new InventoryPage(getDriver());
         Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page is opened after login.");
 

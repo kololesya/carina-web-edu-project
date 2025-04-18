@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.utils.R;
 
+import pages.InventoryPage;
 import pages.LoginPage;
 import utils.CustomCapabilities;
 
@@ -24,5 +25,11 @@ public class BaseTest implements IAbstractTest {
                 R.TESTDATA.get("user.standard"),
                 R.TESTDATA.getDecrypted("common.password")
         );
+    }
+
+    public void addProductToCartAndOpenCart(String productName) {
+        InventoryPage inventoryPage = new InventoryPage(getDriver());
+        inventoryPage.addProductToCartByName(productName);
+        inventoryPage.getHeaderMenuComponent().clickCartButton();
     }
 }

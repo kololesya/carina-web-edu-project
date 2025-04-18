@@ -9,6 +9,7 @@ import components.InventoryItemComponent;
 import enums.SortType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InventoryPage extends BasePage {
 
@@ -69,5 +70,17 @@ public class InventoryPage extends BasePage {
             }
         }
         return true;
+    }
+
+    public List<String> getProductNames() {
+        return inventoryItems.stream()
+                .map(InventoryItemComponent::getProductName)
+                .collect(Collectors.toList());
+    }
+
+    public List<Double> getProductPrices() {
+        return inventoryItems.stream()
+                .map(item -> Double.parseDouble(item.getProductPrice().replace("$", "")))
+                .collect(Collectors.toList());
     }
 }

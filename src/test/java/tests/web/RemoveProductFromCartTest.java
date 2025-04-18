@@ -9,10 +9,12 @@ import pages.InventoryPage;
 import static constants.ConstantsForProject.EXPECTED_CART_BADGE_COUNT;
 import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
 
-public class RemoveProductFromCartTest extends AddProductInCartBeforeTest{
+public class RemoveProductFromCartTest extends BaseTest{
 
     @Test
     public void testRemoveProductFromCart() {
+        loginToSauceDemo();
+        addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
 
         CartPage cartPage = new CartPage(getDriver());
 
@@ -22,15 +24,17 @@ public class RemoveProductFromCartTest extends AddProductInCartBeforeTest{
 
     @Test
     public void testClearCartAndContinueShopping() {
-        InventoryPage inventoryPage = new InventoryPage(getDriver());
+        loginToSauceDemo();
+        addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
 
         CartPage cartPage = new CartPage(getDriver());
-        Assert.assertEquals(inventoryPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT);
+        Assert.assertEquals(cartPage.getHeaderMenuComponent().getCartBadgeText(), EXPECTED_CART_BADGE_COUNT);
         cartPage.clearCart();
 
-        Assert.assertTrue(inventoryPage.getHeaderMenuComponent().getCartBadgeText().isEmpty(), "Cart should be empty after clearing");
+        Assert.assertTrue(cartPage.getHeaderMenuComponent().getCartBadgeText().isEmpty(), "Cart should be empty after clearing");
         cartPage.clickContinueShopping();
 
+        InventoryPage inventoryPage = new InventoryPage(getDriver());
         Assert.assertTrue(inventoryPage.isPageOpened(), "User should be returned to the inventory page");
     }
 }

@@ -26,9 +26,7 @@ public class AddProductInCartTest extends BaseTest {
     @Test
     public void testVerifyProductInCart() {
         loginToSauceDemo();
-        InventoryPage inventoryPage = new InventoryPage(getDriver());
-        inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
-        inventoryPage.getHeaderMenuComponent().clickCartButton();
+        addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
 
         CartPage cartPage = new CartPage(getDriver());
         String actualProductName = cartPage.getProductNameInCart();
