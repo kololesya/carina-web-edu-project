@@ -11,9 +11,8 @@ import com.zebrunner.carina.utils.R;
 import pages.LoginPage;
 import utils.CustomCapabilities;
 
-public class BaseTest implements IAbstractTest, IDriverPool {
+public class BaseTest implements IAbstractTest {
 
-    @BeforeMethod
     public void loginToSauceDemo() {
         setCapabilities(CustomCapabilities.getChromeCapabilities());
 
@@ -21,7 +20,9 @@ public class BaseTest implements IAbstractTest, IDriverPool {
 
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
-        Assert.assertTrue(loginPage.isPageOpened(), "Login page is opened.");
-        loginPage.login(R.CONFIG.get("sauce_username"), R.CONFIG.getDecrypted("sauce_password"));
+        loginPage.login(
+                R.TESTDATA.get("user.standard"),
+                R.TESTDATA.getDecrypted("common.password")
+        );
     }
 }

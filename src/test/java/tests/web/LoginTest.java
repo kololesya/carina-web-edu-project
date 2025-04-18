@@ -1,5 +1,6 @@
 package tests.web;
 
+import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,14 +10,16 @@ import com.zebrunner.carina.core.IAbstractTest;
 import pages.InventoryPage;
 import pages.LoginPage;
 
-public class LoginTest implements IAbstractTest {
+public class LoginTest extends BaseTest {
     @DataProvider(name = "loginData")
     private Object[][] loginData() {
+        String commonPass = R.TESTDATA.getDecrypted("common.password");
+
         return new Object[][] {
-                { "standard_user", "secret_sauce", true },
-                { "locked_out_user", "secret_sauce", false },
-                { "problem_user", "secret_sauce", true },
-                { "invalid_user", "wrong_password", false }
+                { R.TESTDATA.get("user.standard"), commonPass, true },
+                { R.TESTDATA.get("user.locked"), commonPass, false },
+                { R.TESTDATA.get("user.problem"), commonPass, true },
+                { R.TESTDATA.get("user.invalid"), R.TESTDATA.get("pass.invalid"), false }
         };
     }
 

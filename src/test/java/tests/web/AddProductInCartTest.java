@@ -14,6 +14,7 @@ public class AddProductInCartTest extends BaseTest {
 
     @Test
     public void testVerifyCartBadgeText() {
+        loginToSauceDemo();
         InventoryPage inventoryPage = new InventoryPage(getDriver());
 
         Assert.assertTrue(inventoryPage.getHeaderMenuComponent().getCartBadgeText().isEmpty(), "Cart badge should be empty initially");
@@ -24,6 +25,7 @@ public class AddProductInCartTest extends BaseTest {
 
     @Test
     public void testVerifyProductInCart() {
+        loginToSauceDemo();
         InventoryPage inventoryPage = new InventoryPage(getDriver());
         inventoryPage.addProductToCartByName(SAUCE_LABS_ONESIE);
         inventoryPage.getHeaderMenuComponent().clickCartButton();
@@ -36,6 +38,7 @@ public class AddProductInCartTest extends BaseTest {
 
     @Test
     public void testAddProductToCartFromProductPage(){
+        loginToSauceDemo();
         InventoryPage inventoryPage = new InventoryPage(getDriver());
         inventoryPage.openProductPageByProductName(SAUCE_LABS_ONESIE);
 
@@ -51,6 +54,7 @@ public class AddProductInCartTest extends BaseTest {
 
     @Test
     public void testNavigateBackToInventoryFromProductPage() {
+        loginToSauceDemo();
         InventoryPage inventoryPage = new InventoryPage(getDriver());
         inventoryPage.openProductPageByProductName(SAUCE_LABS_ONESIE);
 
