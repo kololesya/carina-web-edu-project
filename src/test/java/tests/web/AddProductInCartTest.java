@@ -37,7 +37,7 @@ public class AddProductInCartTest extends BaseTest {
     @Test
     public void testAddProductToCartFromProductPage(){
         InventoryPage inventoryPage = new InventoryPage(getDriver());
-        inventoryPage.openProductPage(SAUCE_LABS_ONESIE);
+        inventoryPage.openProductPageByProductName(SAUCE_LABS_ONESIE);
 
         ProductPage productPage = new ProductPage(getDriver());
         Assert.assertTrue(productPage.isPageOpened());
@@ -52,12 +52,11 @@ public class AddProductInCartTest extends BaseTest {
     @Test
     public void testNavigateBackToInventoryFromProductPage() {
         InventoryPage inventoryPage = new InventoryPage(getDriver());
-        Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page should be opened.");
-
-        inventoryPage.openProductPage(SAUCE_LABS_ONESIE);
+        inventoryPage.openProductPageByProductName(SAUCE_LABS_ONESIE);
 
         ProductPage productPage = new ProductPage(getDriver());
         Assert.assertTrue(productPage.isPageOpened(), "Product page should be opened.");
+        productPage.addToCart();
 
         productPage.returnToInventoryPage();
         Assert.assertTrue(inventoryPage.isPageOpened(), "Inventory page should be opened after clicking back.");
