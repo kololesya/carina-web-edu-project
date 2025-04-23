@@ -1,15 +1,16 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
 import components.HeaderMenuComponent;
 import components.InventoryItemComponent;
 import enums.SortType;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class InventoryPage extends BasePage {
 

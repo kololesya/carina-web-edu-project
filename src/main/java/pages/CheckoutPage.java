@@ -37,7 +37,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutOverviewPage clickContinue() {
-
         continueButton.click();
         return new CheckoutOverviewPage(getDriver());
     }

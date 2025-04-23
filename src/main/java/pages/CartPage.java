@@ -1,13 +1,12 @@
 package pages;
 
-import components.CartItemComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
 import components.HeaderMenuComponent;
-
+import components.CartItemComponent;
 
 import java.util.List;
 

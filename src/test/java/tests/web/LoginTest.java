@@ -11,13 +11,13 @@ import pages.LoginPage;
 public class LoginTest extends BaseTest {
     @DataProvider(name = "loginData")
     private Object[][] loginData() {
-        String commonPass = R.TESTDATA.getDecrypted("common.password");
+        String validPass = R.TESTDATA.getDecrypted("valid.password");
 
         return new Object[][] {
-                { R.TESTDATA.get("user.standard"), commonPass, true },
-                { R.TESTDATA.get("user.locked"), commonPass, false },
-                { R.TESTDATA.get("user.problem"), commonPass, true },
-                { R.TESTDATA.get("user.invalid"), R.TESTDATA.get("pass.invalid"), false }
+                { R.TESTDATA.getDecrypted("user.test"), validPass, true },
+                { R.TESTDATA.getDecrypted("user.locked"), validPass, false },
+                { R.TESTDATA.getDecrypted("user.problem"), validPass, true },
+                { R.TESTDATA.getDecrypted("user.invalid"), R.TESTDATA.getDecrypted("invalid.password"), false }
         };
     }
 

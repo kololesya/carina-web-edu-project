@@ -1,12 +1,12 @@
 package pages;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class CheckoutOverviewPage extends BasePage {
 
