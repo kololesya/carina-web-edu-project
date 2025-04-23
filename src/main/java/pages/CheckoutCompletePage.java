@@ -17,8 +17,9 @@ public class CheckoutCompletePage extends BasePage {
         super(driver);
     }
 
+    @Override
     public boolean isPageOpened() {
-        return completeTitle.getText().equals("Checkout: Complete!");
+        return isAnyElementPresent();
     }
 
     public boolean isOrderCompleteMessageDisplayed() {

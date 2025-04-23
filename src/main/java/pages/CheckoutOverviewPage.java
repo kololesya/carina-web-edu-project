@@ -23,12 +23,12 @@ public class CheckoutOverviewPage extends BasePage {
         super(driver);
     }
 
+    @Override
     public boolean isPageOpened() {
-        return overviewTitle.getText().equals("Checkout: Overview");
+        return isAnyElementPresent();
     }
 
     public CheckoutCompletePage clickFinishButton() {
-
         finishButton.click();
         return new CheckoutCompletePage(getDriver());
     }

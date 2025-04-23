@@ -12,15 +12,6 @@ public class BasePage extends AbstractPage {
         super(driver);
     }
 
-    public void open() {
-        open(getUrl().orElseThrow(() ->
-                new IllegalStateException("URL must not be null. Either override getUrl() or pass a URL to open.")));
-    }
-
-    public void open(String url) {
-        getDriver().get(url);
-    }
-
     public Optional<String> getUrl() {
         return Optional.empty();
     }

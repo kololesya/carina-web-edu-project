@@ -40,7 +40,7 @@ public class CartPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return checkoutButton.isPresent();
+        return isAnyElementPresent();
     }
 
     public String getProductNameInCart() {

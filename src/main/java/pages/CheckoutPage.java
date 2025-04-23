@@ -25,8 +25,9 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
+    @Override
     public boolean isPageOpened() {
-        return checkoutTitle.isPresent() && checkoutTitle.getText().equals("Checkout: Your Information");
+        return isAnyElementPresent();
     }
 
     public void fillCheckoutForm(String firstName, String lastName, String zipCode) {

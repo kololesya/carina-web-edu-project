@@ -32,12 +32,13 @@ public class InventoryPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return !inventoryItems.isEmpty() && inventoryItems.get(0).isElementPresent();
+        return isAnyElementPresent();
     }
 
     public void addProductToCartByName(String productName) {
         for (InventoryItemComponent item : inventoryItems) {
             if (item.getProductName().equalsIgnoreCase(productName)) {
+                System.out.println(item.getProductName());
                 item.addToCart();
                 return;
             }

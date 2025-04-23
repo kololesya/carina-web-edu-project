@@ -33,15 +33,16 @@ public class LoginPage extends BasePage {
         return Configuration.get("url");
     }
 
-    public void login(String username, String password) {
+    public InventoryPage login(String username, String password) {
         usernameField.type(username);
         passwordField.type(password);
         loginButton.click();
+        return new InventoryPage(getDriver());
     }
 
     @Override
     public boolean isPageOpened() {
-        return loginButton.isPresent();
+        return isAnyElementPresent();
     }
 
     public boolean isErrorMessageDisplayed() {

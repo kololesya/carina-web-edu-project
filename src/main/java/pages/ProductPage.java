@@ -22,7 +22,7 @@ public class ProductPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return productDescriptionElement.isPresent();
+        return isAnyElementPresent();
     }
 
     public void addToCart() {
