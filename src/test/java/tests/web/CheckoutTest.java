@@ -10,7 +10,7 @@ import pages.CheckoutPage;
 import pages.CheckoutOverviewPage;
 import pages.CheckoutCompletePage;
 
-import static constants.ConstantsForProject.SAUCE_LABS_ONESIE;
+import static constants.ProjectConstant.SAUCE_LABS_ONESIE;
 
 public class CheckoutTest extends BaseTest{
     @Test

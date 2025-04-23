@@ -32,28 +32,33 @@ public class InventoryPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return isAnyElementPresent();
+        return sortingDropdown.isElementPresent();
     }
 
     public void addProductToCartByName(String productName) {
-        for (InventoryItemComponent item : inventoryItems) {
-            if (item.getProductName().equalsIgnoreCase(productName)) {
-                System.out.println(item.getProductName());
-                item.addToCart();
-                return;
-            }
-        }
-        throw new RuntimeException("Product not found in inventory: " + productName);
+        inventoryItems.stream()
+                .filter(item -> item.getProductName().equalsIgnoreCase(productName))
+                .findFirst()
+                .ifPresentOrElse(
+                        InventoryItemComponent::addToCart,
+                        () -> {
+                            throw new RuntimeException("Product not found in inventory: " + productName);
+                        }
+                );
     }
 
     public ProductPage openProductPageByProductName(String productName) {
-        for (InventoryItemComponent item : inventoryItems) {
-            if (item.getProductName().equalsIgnoreCase(productName)) {
-                item.getProductLink().click();
-                return new ProductPage(getDriver());
-            }
-        }
-        throw new RuntimeException("Product not found: " + productName);
+        inventoryItems.stream()
+                .filter(item -> item.getProductName().equalsIgnoreCase(productName))
+                .findFirst()
+                .ifPresentOrElse(
+                        item -> item.getProductLink().click(),
+                        () -> {
+                            throw new RuntimeException("Product not found: " + productName);
+                        }
+                );
+
+        return new ProductPage(getDriver());
     }
 
     public void selectSortingOption(String option) {
@@ -83,5 +88,9 @@ public class InventoryPage extends BasePage {
         return inventoryItems.stream()
                 .map(item -> Double.parseDouble(item.getProductPrice().replace("$", "")))
                 .collect(Collectors.toList());
+    }
+
+    public String getCartBadgeText() {
+        return primaryHeader.getCartBadgeText();
     }
 }

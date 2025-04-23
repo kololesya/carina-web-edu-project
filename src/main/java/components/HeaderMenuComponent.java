@@ -33,13 +33,11 @@ public class HeaderMenuComponent extends AbstractUIObject {
 
     public LoginPage logout() {
         logoutButton.click();
-
         return new LoginPage(getDriver());
     }
 
     public CartPage clickCartButton() {
         cartButton.click();
-
         return new CartPage(getDriver());
     }
 

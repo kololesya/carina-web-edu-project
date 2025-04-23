@@ -42,11 +42,10 @@ public class LoginPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return isAnyElementPresent();
+        return loginButton.isElementPresent();
     }
 
     public boolean isErrorMessageDisplayed() {
         return errorMessage.isDisplayed();
-
     }
 }

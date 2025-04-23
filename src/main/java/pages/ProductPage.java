@@ -22,16 +22,15 @@ public class ProductPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return isAnyElementPresent();
+        return productDescriptionElement.isElementPresent();
     }
 
-    public void addToCart() {
+    public void addProductToCart() {
         addToCartButton.click();
     }
 
     public InventoryPage returnToInventoryPage(){
         backToProductsButton.click();
-
         return new InventoryPage(getDriver());
     }
 }
