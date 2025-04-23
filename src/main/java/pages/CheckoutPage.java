@@ -26,8 +26,8 @@ public class CheckoutPage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return isAnyElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return continueButton;
     }
 
     public void fillCheckoutForm(String firstName, String lastName, String zipCode) {

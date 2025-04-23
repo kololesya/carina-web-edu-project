@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class InventoryItemComponent extends AbstractUIObject {
     @FindBy(xpath = ".//div[contains(@class, 'inventory_item_name')]")
     private ExtendedWebElement productName;

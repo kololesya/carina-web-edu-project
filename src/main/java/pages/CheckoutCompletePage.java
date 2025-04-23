@@ -18,8 +18,8 @@ public class CheckoutCompletePage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return isAnyElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return completeTitle;
     }
 
     public boolean isOrderCompleteMessageDisplayed() {

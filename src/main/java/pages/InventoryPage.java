@@ -31,8 +31,8 @@ public class InventoryPage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return sortingDropdown.isElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return sortingDropdown;
     }
 
     public void addProductToCartByName(String productName) {

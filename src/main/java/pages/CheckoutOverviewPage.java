@@ -24,8 +24,8 @@ public class CheckoutOverviewPage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return isAnyElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return finishButton;
     }
 
     public CheckoutCompletePage clickFinishButton() {

@@ -21,8 +21,8 @@ public class ProductPage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return productDescriptionElement.isElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return productDescriptionElement;
     }
 
     public void addProductToCart() {

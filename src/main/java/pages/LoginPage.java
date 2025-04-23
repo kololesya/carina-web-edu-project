@@ -41,8 +41,8 @@ public class LoginPage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return loginButton.isElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return loginButton;
     }
 
     public boolean isErrorMessageDisplayed() {

@@ -34,8 +34,8 @@ public class CartPage extends BasePage {
     }
 
     @Override
-    public boolean isPageOpened() {
-        return checkoutButton.isElementPresent();
+    protected ExtendedWebElement getUniqueElement() {
+        return checkoutButton;
     }
 
     public void removeProductFromCart(String productName) {
