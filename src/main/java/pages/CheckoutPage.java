@@ -1,5 +1,6 @@
 package pages;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -23,11 +24,8 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
-    }
-
-    @Override
-    protected ExtendedWebElement getUniqueElement() {
-        return continueButton;
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(continueButton);
     }
 
     public void fillCheckoutForm(String firstName, String lastName, String zipCode) {

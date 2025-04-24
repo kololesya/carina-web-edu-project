@@ -3,6 +3,7 @@ package pages;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -21,11 +22,8 @@ public class CheckoutOverviewPage extends BasePage {
 
     public CheckoutOverviewPage(WebDriver driver) {
         super(driver);
-    }
-
-    @Override
-    protected ExtendedWebElement getUniqueElement() {
-        return finishButton;
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(overviewTitle);
     }
 
     public CheckoutCompletePage clickFinishButton() {

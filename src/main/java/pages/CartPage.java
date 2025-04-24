@@ -1,5 +1,6 @@
 package pages;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -26,15 +27,12 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver) {
         super(driver);
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(checkoutButton);
     }
 
     public HeaderMenuComponent getHeaderMenuComponent() {
         return primaryHeader;
-    }
-
-    @Override
-    protected ExtendedWebElement getUniqueElement() {
-        return checkoutButton;
     }
 
     public void removeProductFromCart(String productName) {

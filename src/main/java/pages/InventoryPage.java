@@ -3,6 +3,7 @@ package pages;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -25,15 +26,12 @@ public class InventoryPage extends BasePage {
 
     public InventoryPage(WebDriver driver) {
         super(driver);
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(sortingDropdown);
     }
 
     public HeaderMenuComponent getHeaderMenuComponent() {
         return primaryHeader;
-    }
-
-    @Override
-    protected ExtendedWebElement getUniqueElement() {
-        return sortingDropdown;
     }
 
     public void addProductToCartByName(String productName) {

@@ -25,8 +25,8 @@ public class BaseTest implements IAbstractTest {
         setCapabilities(CustomCapabilities.getChromeCapabilities());
         LoginPage loginPage = openLoginPage();
         loginPage.login(
-                R.TESTDATA.get("user.standard"),
-                R.TESTDATA.getDecrypted("common.password")
+                R.TESTDATA.getDecrypted("user.test"),
+                R.TESTDATA.getDecrypted("valid.password")
         );
 
         return new InventoryPage(getDriver());
