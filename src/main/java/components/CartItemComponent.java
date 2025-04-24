@@ -23,7 +23,7 @@ public class CartItemComponent extends AbstractUIObject {
         return productName.getText().trim();
     }
 
-    public void remove() {
+    public void clickRemoveButton() {
         removeButton.click();
     }
 }

@@ -29,7 +29,7 @@ public class InventoryItemComponent extends AbstractUIObject {
         return productPrice.getText().trim();
     }
 
-    public void addToCart() {
+    public void clickAddToCart() {
         addToCartButton.click();
     }
 
@@ -37,4 +37,11 @@ public class InventoryItemComponent extends AbstractUIObject {
         productName.click();
     }
 
+    public void removeFromCart() {
+        addToCartButton.click();
+    }
+
+    public boolean isAddToCartVisible() {
+        return addToCartButton.isElementPresent();
+    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CartPage extends BasePage {
 
-    @FindBy(xpath = "//div[@id='cart_contents_container']//div[@data-test='inventory-item']")
+    @FindBy(xpath = "//div[@class='cart_item']")
     private List<CartItemComponent> cartItemComponents;
 
     @FindBy(id = "continue-shopping")
@@ -40,7 +40,7 @@ public class CartPage extends BasePage {
                 .filter(item -> item.getProductName().equalsIgnoreCase(productName))
                 .findFirst()
                 .ifPresentOrElse(
-                        CartItemComponent::remove,
+                        CartItemComponent::clickRemoveButton,
                         () -> {
                             throw new RuntimeException("Product not found in cart: " + productName);
                         }
@@ -49,7 +49,7 @@ public class CartPage extends BasePage {
 
     public void clearCart() {
         while (!cartItemComponents.isEmpty()) {
-            cartItemComponents.get(0).remove();
+            cartItemComponents.get(0).clickRemoveButton();
         }
     }
 
@@ -75,21 +75,4 @@ public class CartPage extends BasePage {
     public String getCartBadgeText() {
         return primaryHeader.getCartBadgeText();
     }
-
-    public void debugCartItems() {
-        System.out.println("=== Debugging cart items ===");
-        System.out.println("Number of elements found: " + cartItemComponents.size());
-
-        for (int i = 0; i < cartItemComponents.size(); i++) {
-            CartItemComponent item = cartItemComponents.get(i);
-            try {
-                System.out.println("Item " + (i + 1) + ": " + item.getProductName());
-            } catch (Exception e) {
-                System.out.println("Item " + (i + 1) + ": unable to get product name. Exception: " + e.getMessage());
-            }
-        }
-
-        System.out.println("=== End of cart items debug ===");
-    }
-
 }

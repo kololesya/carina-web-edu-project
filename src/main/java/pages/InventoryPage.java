@@ -39,7 +39,7 @@ public class InventoryPage extends BasePage {
                 .filter(item -> item.getProductName().equalsIgnoreCase(productName))
                 .findFirst()
                 .ifPresentOrElse(
-                        InventoryItemComponent::addToCart,
+                        InventoryItemComponent::clickAddToCart,
                         () -> {
                             throw new RuntimeException("Product not found in inventory: " + productName);
                         }
