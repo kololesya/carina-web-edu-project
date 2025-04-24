@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.InventoryPage;
 
-import static constants.ProjectConstant.EXPECTED_CART_BADGE_COUNT;
-import static constants.ProjectConstant.SAUCE_LABS_ONESIE;
+import static constants.ProjectConstants.EXPECTED_CART_BADGE_COUNT;
+import static constants.ProjectConstants.SAUCE_LABS_ONESIE;
 
 public class RemoveProductFromCartTest extends BaseTest{
 
@@ -15,7 +15,7 @@ public class RemoveProductFromCartTest extends BaseTest{
     public void testRemoveProductFromCart() {
         loginToSauceDemo();
         CartPage cartPage = addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
-        Assert.assertTrue(cartPage.isPageOpened());
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart Page should be opened");
         cartPage.removeProductFromCart(SAUCE_LABS_ONESIE);
         Assert.assertTrue(cartPage.isProductNotInCart(SAUCE_LABS_ONESIE), "Product should be removed from cart");
     }
@@ -24,7 +24,7 @@ public class RemoveProductFromCartTest extends BaseTest{
     public void testClearCartAndContinueShopping() {
         loginToSauceDemo();
         CartPage cartPage = addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
-        Assert.assertEquals(cartPage.getCartBadgeText(), EXPECTED_CART_BADGE_COUNT);
+        Assert.assertEquals(cartPage.getCartBadgeText(), EXPECTED_CART_BADGE_COUNT, "Cart badge should display '1' after adding one product");
         cartPage.clearCart();
         Assert.assertTrue(cartPage.getCartBadgeText().isEmpty(), "Cart should be empty after clearing");
         InventoryPage inventoryPage = cartPage.clickContinueShopping();

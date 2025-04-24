@@ -1,10 +1,10 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 
 import components.HeaderMenuComponent;
 import components.CartItemComponent;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CartPage extends BasePage {
 
-    @FindBy(className = "cart_item")
+    @FindBy(xpath = "//div[@id='cart_contents_container']//div[@data-test='inventory-item']")
     private List<CartItemComponent> cartItemComponents;
 
     @FindBy(id = "continue-shopping")
@@ -75,4 +75,21 @@ public class CartPage extends BasePage {
     public String getCartBadgeText() {
         return primaryHeader.getCartBadgeText();
     }
+
+    public void debugCartItems() {
+        System.out.println("=== Debugging cart items ===");
+        System.out.println("Number of elements found: " + cartItemComponents.size());
+
+        for (int i = 0; i < cartItemComponents.size(); i++) {
+            CartItemComponent item = cartItemComponents.get(i);
+            try {
+                System.out.println("Item " + (i + 1) + ": " + item.getProductName());
+            } catch (Exception e) {
+                System.out.println("Item " + (i + 1) + ": unable to get product name. Exception: " + e.getMessage());
+            }
+        }
+
+        System.out.println("=== End of cart items debug ===");
+    }
+
 }

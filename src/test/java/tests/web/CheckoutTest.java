@@ -7,9 +7,9 @@ import org.testng.annotations.Test;
 
 import pages.*;
 
-import static constants.ProjectConstant.*;
+import static constants.ProjectConstants.*;
 
-public class CheckoutTest extends BaseTest{
+public class CheckoutTest extends BaseTest {
     @Test
     public void testCheckoutProcess() {
         loginToSauceDemo();

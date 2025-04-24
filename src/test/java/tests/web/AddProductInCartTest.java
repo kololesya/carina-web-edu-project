@@ -7,8 +7,8 @@ import pages.InventoryPage;
 import pages.CartPage;
 import pages.ProductPage;
 
-import static constants.ProjectConstant.EXPECTED_CART_BADGE_COUNT;
-import static constants.ProjectConstant.SAUCE_LABS_ONESIE;
+import static constants.ProjectConstants.EXPECTED_CART_BADGE_COUNT;
+import static constants.ProjectConstants.SAUCE_LABS_ONESIE;
 
 public class AddProductInCartTest extends BaseTest {
 
@@ -24,7 +24,7 @@ public class AddProductInCartTest extends BaseTest {
     public void testVerifyProductInCart() {
         loginToSauceDemo();
         CartPage cartPage = addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
-        Assert.assertTrue(cartPage.isProductNotInCart(SAUCE_LABS_ONESIE), "Product name in cart should match the expected name");
+        Assert.assertFalse(cartPage.isProductNotInCart(SAUCE_LABS_ONESIE), "Product name in cart should match the expected name");
     }
 
     @Test

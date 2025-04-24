@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
+
 import pages.CartPage;
 import pages.LoginPage;
 

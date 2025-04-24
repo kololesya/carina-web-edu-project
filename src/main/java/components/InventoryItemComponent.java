@@ -11,9 +11,6 @@ public class InventoryItemComponent extends AbstractUIObject {
     @FindBy(xpath = ".//div[contains(@class, 'inventory_item_name')]")
     private ExtendedWebElement productName;
 
-    @FindBy(className = "inventory_item_name")
-    private ExtendedWebElement productLink;
-
     @FindBy(xpath = ".//div[contains(@class, 'inventory_item_price')]")
     private ExtendedWebElement productPrice;
 
@@ -36,7 +33,8 @@ public class InventoryItemComponent extends AbstractUIObject {
         addToCartButton.click();
     }
 
-    public ExtendedWebElement getProductLink() {
-        return productLink;
+    public void clickOnProductName() {
+        productName.click();
     }
+
 }

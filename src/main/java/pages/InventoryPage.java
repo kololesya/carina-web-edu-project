@@ -3,11 +3,11 @@ package pages;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 
 import components.HeaderMenuComponent;
 import components.InventoryItemComponent;
@@ -51,7 +51,8 @@ public class InventoryPage extends BasePage {
                 .filter(item -> item.getProductName().equalsIgnoreCase(productName))
                 .findFirst()
                 .ifPresentOrElse(
-                        item -> item.getProductLink().click(),
+                        InventoryItemComponent::clickOnProductName
+,
                         () -> {
                             throw new RuntimeException("Product not found: " + productName);
                         }
