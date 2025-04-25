@@ -7,14 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 
-import static org.openqa.selenium.support.PageFactory.initElements;
-
 public class InventoryItemComponent extends AbstractUIObject {
     @FindBy(xpath = ".//div[contains(@class, 'inventory_item_name')]")
     private ExtendedWebElement productName;
-
-    @FindBy(className = "inventory_item_name")
-    private ExtendedWebElement productLink;
 
     @FindBy(xpath = ".//div[contains(@class, 'inventory_item_price')]")
     private ExtendedWebElement productPrice;
@@ -34,11 +29,19 @@ public class InventoryItemComponent extends AbstractUIObject {
         return productPrice.getText().trim();
     }
 
-    public void addToCart() {
+    public void clickAddToCart() {
         addToCartButton.click();
     }
 
-    public ExtendedWebElement getProductLink() {
-        return productLink;
+    public void clickOnProductName() {
+        productName.click();
+    }
+
+    public void removeFromCart() {
+        addToCartButton.click();
+    }
+
+    public boolean isAddToCartVisible() {
+        return addToCartButton.isElementPresent();
     }
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
+
 import pages.CartPage;
 import pages.LoginPage;
 
@@ -33,13 +34,11 @@ public class HeaderMenuComponent extends AbstractUIObject {
 
     public LoginPage logout() {
         logoutButton.click();
-
         return new LoginPage(getDriver());
     }
 
     public CartPage clickCartButton() {
         cartButton.click();
-
         return new CartPage(getDriver());
     }
 

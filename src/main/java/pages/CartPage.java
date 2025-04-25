@@ -1,22 +1,20 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import components.HeaderMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
+
+import components.HeaderMenuComponent;
+import components.CartItemComponent;
 
 import java.util.List;
 
 public class CartPage extends BasePage {
 
-    @FindBy(xpath = "//div[contains(@class, 'inventory_item_name')]")
-    private ExtendedWebElement productNameElement;
-
-    @FindBy(className = "cart_item")
-    private List<ExtendedWebElement> cartItems;
-
-    @FindBy(xpath = "//button[contains(@id, 'remove')]")
-    private ExtendedWebElement removeButton;
+    @FindBy(xpath = "//div[@class='cart_item']")
+    private List<CartItemComponent> cartItemComponents;
 
     @FindBy(id = "continue-shopping")
     private ExtendedWebElement continueShoppingButton;
@@ -24,56 +22,45 @@ public class CartPage extends BasePage {
     @FindBy(id = "checkout")
     private ExtendedWebElement checkoutButton;
 
-    @FindBy(xpath = "//button[contains(@id, 'remove')]")
-    private List<ExtendedWebElement> removeButtons;
-
     @FindBy(className = "primary_header")
     private HeaderMenuComponent primaryHeader;
 
     public CartPage(WebDriver driver) {
         super(driver);
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(checkoutButton);
     }
 
     public HeaderMenuComponent getHeaderMenuComponent() {
         return primaryHeader;
     }
 
-    @Override
-    public boolean isPageOpened() {
-        return checkoutButton.isPresent();
-    }
-
-    public String getProductNameInCart() {
-        return productNameElement.getText();
-    }
-
     public void removeProductFromCart(String productName) {
-        for (ExtendedWebElement item : cartItems) {
-            ExtendedWebElement nameElement = item.findExtendedWebElement(productNameElement.getBy());
-            if (nameElement.getText().trim().equalsIgnoreCase(productName)) {
-                ExtendedWebElement deleteButton = item.findExtendedWebElement(removeButton.getBy());
-                deleteButton.click();
-                return;
-            }
-        }
-        throw new RuntimeException("Product not found in cart: " + productName);
+        cartItemComponents.stream()
+                .filter(item -> item.getProductName().equalsIgnoreCase(productName))
+                .findFirst()
+                .ifPresentOrElse(
+                        CartItemComponent::clickRemoveButton,
+                        () -> {
+                            throw new RuntimeException("Product not found in cart: " + productName);
+                        }
+                );
     }
 
     public void clearCart() {
-        while (!removeButtons.isEmpty()) {
-            removeButtons.get(0).click();
+        while (!cartItemComponents.isEmpty()) {
+            cartItemComponents.get(0).clickRemoveButton();
         }
     }
 
     public boolean isProductNotInCart(String productName) {
-        return cartItems.stream().noneMatch(item -> {
-            ExtendedWebElement itemNameElement = item.findExtendedWebElement(productNameElement.getBy());
-            return itemNameElement.getText().trim().equalsIgnoreCase(productName);
-        });
+        return cartItemComponents.stream()
+                .noneMatch(item -> item.getProductName().equalsIgnoreCase(productName));
     }
 
-    public void clickContinueShopping() {
+    public InventoryPage clickContinueShopping() {
         continueShoppingButton.click();
+        return new InventoryPage(getDriver());
     }
 
     public CheckoutPage clickCheckoutButton() {
@@ -82,6 +69,10 @@ public class CartPage extends BasePage {
     }
 
     public boolean isCartEmpty() {
-        return cartItems.isEmpty();
+        return cartItemComponents.isEmpty();
+    }
+
+    public String getCartBadgeText() {
+        return primaryHeader.getCartBadgeText();
     }
 }

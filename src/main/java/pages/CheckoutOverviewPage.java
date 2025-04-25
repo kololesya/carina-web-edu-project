@@ -1,12 +1,13 @@
 package pages;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class CheckoutOverviewPage extends BasePage {
 
@@ -21,14 +22,11 @@ public class CheckoutOverviewPage extends BasePage {
 
     public CheckoutOverviewPage(WebDriver driver) {
         super(driver);
-    }
-
-    public boolean isPageOpened() {
-        return overviewTitle.getText().equals("Checkout: Overview");
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(overviewTitle);
     }
 
     public CheckoutCompletePage clickFinishButton() {
-
         finishButton.click();
         return new CheckoutCompletePage(getDriver());
     }

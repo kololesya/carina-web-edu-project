@@ -22,11 +22,8 @@ public class InventorySortingTest extends BaseTest {
 
     @Test(dataProvider = "sortingOptions")
     public void testInventorySorting(SortType sortType) {
-        loginToSauceDemo();
-
-        InventoryPage inventoryPage = new InventoryPage(getDriver());
+        InventoryPage inventoryPage = loginToSauceDemo();
         InventorySortingService inventorySortingService = new InventorySortingService(inventoryPage);
-
         Assert.assertTrue(inventorySortingService.isSortingAppliedCorrectly(sortType),
                 "Products are sorted correctly by " + sortType);
     }

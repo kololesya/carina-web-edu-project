@@ -1,5 +1,6 @@
 package pages;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -15,10 +16,8 @@ public class CheckoutCompletePage extends BasePage {
 
     public CheckoutCompletePage(WebDriver driver) {
         super(driver);
-    }
-
-    public boolean isPageOpened() {
-        return completeTitle.getText().equals("Checkout: Complete!");
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(completeTitle);
     }
 
     public boolean isOrderCompleteMessageDisplayed() {

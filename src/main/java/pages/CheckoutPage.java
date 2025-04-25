@@ -1,5 +1,6 @@
 package pages;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -23,10 +24,8 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
-    }
-
-    public boolean isPageOpened() {
-        return checkoutTitle.isPresent() && checkoutTitle.getText().equals("Checkout: Your Information");
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(continueButton);
     }
 
     public void fillCheckoutForm(String firstName, String lastName, String zipCode) {
@@ -36,7 +35,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutOverviewPage clickContinue() {
-
         continueButton.click();
         return new CheckoutOverviewPage(getDriver());
     }

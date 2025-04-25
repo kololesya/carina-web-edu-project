@@ -1,5 +1,6 @@
 package pages;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -18,20 +19,16 @@ public class ProductPage extends BasePage {
 
     public ProductPage(WebDriver driver) {
         super(driver);
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(productDescriptionElement);
     }
 
-    @Override
-    public boolean isPageOpened() {
-        return productDescriptionElement.isPresent();
-    }
-
-    public void addToCart() {
+    public void addProductToCart() {
         addToCartButton.click();
     }
 
     public InventoryPage returnToInventoryPage(){
         backToProductsButton.click();
-
         return new InventoryPage(getDriver());
     }
 }

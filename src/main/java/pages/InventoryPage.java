@@ -1,15 +1,17 @@
 package pages;
 
-import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 
 import components.HeaderMenuComponent;
 import components.InventoryItemComponent;
 import enums.SortType;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class InventoryPage extends BasePage {
 
@@ -24,35 +26,39 @@ public class InventoryPage extends BasePage {
 
     public InventoryPage(WebDriver driver) {
         super(driver);
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(sortingDropdown);
     }
 
     public HeaderMenuComponent getHeaderMenuComponent() {
         return primaryHeader;
     }
 
-    @Override
-    public boolean isPageOpened() {
-        return !inventoryItems.isEmpty() && inventoryItems.get(0).isElementPresent();
-    }
-
     public void addProductToCartByName(String productName) {
-        for (InventoryItemComponent item : inventoryItems) {
-            if (item.getProductName().equalsIgnoreCase(productName)) {
-                item.addToCart();
-                return;
-            }
-        }
-        throw new RuntimeException("Product not found in inventory: " + productName);
+        inventoryItems.stream()
+                .filter(item -> item.getProductName().equalsIgnoreCase(productName))
+                .findFirst()
+                .ifPresentOrElse(
+                        InventoryItemComponent::clickAddToCart,
+                        () -> {
+                            throw new RuntimeException("Product not found in inventory: " + productName);
+                        }
+                );
     }
 
     public ProductPage openProductPageByProductName(String productName) {
-        for (InventoryItemComponent item : inventoryItems) {
-            if (item.getProductName().equalsIgnoreCase(productName)) {
-                item.getProductLink().click();
-                return new ProductPage(getDriver());
-            }
-        }
-        throw new RuntimeException("Product not found: " + productName);
+        inventoryItems.stream()
+                .filter(item -> item.getProductName().equalsIgnoreCase(productName))
+                .findFirst()
+                .ifPresentOrElse(
+                        InventoryItemComponent::clickOnProductName
+,
+                        () -> {
+                            throw new RuntimeException("Product not found: " + productName);
+                        }
+                );
+
+        return new ProductPage(getDriver());
     }
 
     public void selectSortingOption(String option) {
@@ -82,5 +88,9 @@ public class InventoryPage extends BasePage {
         return inventoryItems.stream()
                 .map(item -> Double.parseDouble(item.getProductPrice().replace("$", "")))
                 .collect(Collectors.toList());
+    }
+
+    public String getCartBadgeText() {
+        return primaryHeader.getCartBadgeText();
     }
 }

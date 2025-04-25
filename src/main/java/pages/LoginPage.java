@@ -1,5 +1,6 @@
 package pages;
 
+import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -26,6 +27,8 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        setPageOpeningStrategy(PageOpeningStrategy.BY_ELEMENT);
+        setUiLoadedMarker(loginButton);
     }
 
     @Override
@@ -33,19 +36,14 @@ public class LoginPage extends BasePage {
         return Configuration.get("url");
     }
 
-    public void login(String username, String password) {
+    public InventoryPage login(String username, String password) {
         usernameField.type(username);
         passwordField.type(password);
         loginButton.click();
-    }
-
-    @Override
-    public boolean isPageOpened() {
-        return loginButton.isPresent();
+        return new InventoryPage(getDriver());
     }
 
     public boolean isErrorMessageDisplayed() {
         return errorMessage.isDisplayed();
-
     }
 }
