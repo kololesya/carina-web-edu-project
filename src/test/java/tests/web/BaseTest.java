@@ -1,10 +1,5 @@
 package tests.web;
 
-import com.zebrunner.carina.webdriver.IDriverPool;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.utils.R;
 
@@ -12,6 +7,8 @@ import pages.CartPage;
 import pages.InventoryPage;
 import pages.LoginPage;
 import utils.CustomCapabilities;
+
+import java.io.IOException;
 
 public class BaseTest implements IAbstractTest {
 
@@ -21,7 +18,7 @@ public class BaseTest implements IAbstractTest {
         return new LoginPage(getDriver());
     }
 
-    public InventoryPage loginToSauceDemo() {
+    public InventoryPage loginToSauceDemo() throws IOException {
         setCapabilities(CustomCapabilities.getChromeCapabilities());
         LoginPage loginPage = openLoginPage();
         loginPage.login(

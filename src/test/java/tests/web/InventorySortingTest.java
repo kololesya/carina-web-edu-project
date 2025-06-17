@@ -8,6 +8,8 @@ import pages.InventoryPage;
 import enums.SortType;
 import tests.services.InventorySortingService;
 
+import java.io.IOException;
+
 public class InventorySortingTest extends BaseTest {
 
     @DataProvider(name = "sortingOptions")
@@ -21,7 +23,7 @@ public class InventorySortingTest extends BaseTest {
     }
 
     @Test(dataProvider = "sortingOptions")
-    public void testInventorySorting(SortType sortType) {
+    public void testInventorySorting(SortType sortType) throws IOException {
         InventoryPage inventoryPage = loginToSauceDemo();
         InventorySortingService inventorySortingService = new InventorySortingService(inventoryPage);
         Assert.assertTrue(inventorySortingService.isSortingAppliedCorrectly(sortType),

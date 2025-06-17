@@ -1,5 +1,6 @@
 package components;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -7,8 +8,15 @@ import org.openqa.selenium.support.FindBy;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CartPage;
 import pages.LoginPage;
+
+import java.time.Duration;
+
+import static constants.ProjectConstants.TIMEOUT_FOR_WAIT;
 
 public class HeaderMenuComponent extends AbstractUIObject {
 
@@ -33,12 +41,16 @@ public class HeaderMenuComponent extends AbstractUIObject {
     }
 
     public LoginPage logout() {
-        logoutButton.click();
+        logoutButton.click(
+                TIMEOUT_FOR_WAIT,
+                ExpectedConditions.elementToBeClickable(logoutButton.getElement())
+        );
         return new LoginPage(getDriver());
     }
 
     public CartPage clickCartButton() {
-        cartButton.click();
+        cartButton.click(TIMEOUT_FOR_WAIT,
+                ExpectedConditions.elementToBeClickable(cartButton.getElement()));
         return new CartPage(getDriver());
     }
 
