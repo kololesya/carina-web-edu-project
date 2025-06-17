@@ -1,5 +1,6 @@
 package tests.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.testng.Assert;
@@ -11,7 +12,7 @@ import static constants.ProjectConstants.*;
 
 public class CheckoutTest extends BaseTest {
     @Test
-    public void testCheckoutProcess() {
+    public void testCheckoutProcess() throws IOException {
         loginToSauceDemo();
         CartPage cartPage = addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
         CheckoutPage checkoutPage = cartPage.clickCheckoutButton();
@@ -26,7 +27,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void testCheckoutWithEmptyCart() {
+    public void testCheckoutWithEmptyCart() throws IOException {
         loginToSauceDemo();
         CartPage cartPage = addProductToCartAndOpenCart(SAUCE_LABS_ONESIE);
         cartPage.clearCart();

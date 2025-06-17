@@ -1,14 +1,12 @@
 package pages;
 
 import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.zebrunner.carina.utils.config.Configuration;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class LoginPage extends BasePage {
