@@ -27,7 +27,12 @@ job('Carina-Web-Edu/RunEcommerceWebTests') {
     }
 
     steps {
-        shell 'mvn clean test -DsuiteXmlFile=web.xml -Dcapabilities.provider=selenium'
+        maven {
+            mavenInstallation('Maven 3')
+            goals('clean test')
+            rootPOM('pom.xml')
+            properties('-DsuiteXmlFile=web.xml', '-Dcapabilities.provider=selenium')
+        }
     }
 
     publishers {
