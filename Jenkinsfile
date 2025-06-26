@@ -5,8 +5,7 @@ pipeline {
     stage('Checkout code') {
       steps {
         git url: 'https://github.com/kololesya/carina-web-edu-project.git',
-            branch: 'jenkins-setup',
-            credentialsId:
+            branch: 'jenkins-setup'
       }
     }
     stage('Generation jobs') {
