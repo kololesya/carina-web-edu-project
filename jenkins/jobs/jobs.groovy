@@ -16,7 +16,6 @@ job('Carina-Web-Edu/RunEcommerceWebTests') {
         git {
             remote {
                 url(gitRepo)
-                credentials(credentialsId)
             }
             branch("*/${branchName}")
         }
