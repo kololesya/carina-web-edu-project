@@ -16,11 +16,11 @@ pipeline {
       }
     }
 
-    stage('Debug SELENIUM_HOST') {
+    stage('Debug GRID_URL') {
       steps {
         sh '''
-          echo ">>> SELENIUM_HOST is: $SELENIUM_HOST"
-          curl --silent --show-error --fail $SELENIUM_HOST/status
+          echo ">>> GRID_URL is: $GRID_URL"
+          curl --silent --show-error --fail $GRID_URL/status
         '''
       }
     }
