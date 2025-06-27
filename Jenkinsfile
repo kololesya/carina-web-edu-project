@@ -6,7 +6,7 @@ pipeline {
   }
 
   environment {
-    SELENIUM_HOST = 'http://localhost:4444'
+    SELENIUM_HOST = 'http://host.docker.internal:4444'
   }
 
   stages {
