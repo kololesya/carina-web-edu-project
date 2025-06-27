@@ -16,6 +16,15 @@ pipeline {
       }
     }
 
+    stage('Debug SELENIUM_HOST') {
+      steps {
+        sh '''
+          echo ">>> SELENIUM_HOST is: $SELENIUM_HOST"
+          curl --silent --show-error --fail $SELENIUM_HOST/status
+        '''
+      }
+    }
+
     stage('Run E-commerce Web Tests') {
       steps {
         sh """
