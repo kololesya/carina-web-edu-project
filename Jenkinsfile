@@ -6,7 +6,7 @@ pipeline {
   }
 
   environment {
-    SELENIUM_HOST = 'http://host.docker.internal:4444'
+    GRID_URL = 'http://host.docker.internal:4444'
   }
 
   stages {
@@ -31,7 +31,7 @@ pipeline {
           mvn clean test \
             -DsuiteXmlFile=web.xml \
             -Dcapabilities.provider=selenium \
-            -Dselenium.host=${SELENIUM_HOST}
+            -Dselenium_url=${GRID_URL}/wd/hub
         """
       }
     }
