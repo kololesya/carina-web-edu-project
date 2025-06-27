@@ -1,6 +1,5 @@
 def gitRepo      = 'https://github.com/kololesya/carina-web-edu-project.git'
 def branchName   = 'jenkins-setup'
-def credentialsId = 'github-token-id'
 
 folder('Carina-Web-Edu') {
     description('All tasks Jenkins for Carina Web EDU Project')

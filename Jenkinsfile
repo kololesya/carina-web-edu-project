@@ -1,17 +1,36 @@
 pipeline {
   agent any
 
+  tools {
+    maven 'Maven 3'
+  }
+
+  environment {
+    SELENIUM_HOST = 'http://localhost:4444'
+  }
+
   stages {
-    stage('Checkout code') {
+    stage('Checkout') {
       steps {
-        git url: 'https://github.com/kololesya/carina-web-edu-project.git',
-            branch: 'jenkins-setup'
+        checkout scm
       }
     }
-    stage('Generation jobs') {
+
+    stage('Run E-commerce Web Tests') {
       steps {
-        jobDsl targets: 'jenkins/jobs/*.groovy'
+        sh """
+          mvn clean test \
+            -DsuiteXmlFile=web.xml \
+            -Dcapabilities.provider=selenium \
+            -Dselenium.host=${SELENIUM_HOST}
+        """
       }
+    }
+  }
+
+  post {
+    always {
+      junit '**/target/surefire-reports/*.xml'
     }
   }
 }
